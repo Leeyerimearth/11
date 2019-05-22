@@ -2,6 +2,9 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
+<!DOCTYPE html>
+
+
 <%--
 <%@ page import="java.util.*"  %>
 <%@ page import="com.model2.mvc.service.domain.Purchase" %>
@@ -28,12 +31,34 @@
 
 --%>
 
-<html>
+<html lang="ko">
 <head>
 <title>베스트 top 10</title>
+<meta charset="EUC-KR">
 
-<link rel="stylesheet" href="/css/admin.css" type="text/css">
-<script src="http://code.jquery.com/jquery-2.1.4.min.js"></script>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" >
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" >
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<link rel="stylesheet" href="/resources/demos/style.css">
+
+<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" ></script>
+
+
+	<!-- Bootstrap Dropdown Hover CSS -->
+   <link href="/css/animate.min.css" rel="stylesheet">
+   <link href="/css/bootstrap-dropdownhover.min.css" rel="stylesheet">
+    <!-- Bootstrap Dropdown Hover JS -->
+   <script src="/javascript/bootstrap-dropdownhover.min.js"></script>
+
+<!--  ///////////////////////// CSS ////////////////////////// -->
+	<style>
+	  body {
+            padding-top : 50px;
+        }
+    </style>
+    
 
 <script type="text/javascript">
 	function fncGetProduct() {
@@ -45,26 +70,16 @@
 	
 	$(function(){
 		
-		$( ".ct_list_pop td:nth-child(3)" ).on("click" , function() {
+		$( "td:nth-child(2)" ).on("click" , function() {
 			//Debug..
 			alert( $(this).find('input').val());
 			self.location ="/product/getProduct?prodNo="+$(this).find('input').val();
 			
 		});
 		
-		$( ".ct_list_pop td:nth-child(3)" ).css("color" , "red");
-		$("h7").css("color" , "red");	
+		$( "td:nth-child(2)" ).css("color" , "red");
 		
-		//==> 아래와 같이 정의한 이유는 ??
-		//==> 아래의 주석을 하나씩 풀어 가며 이해하세요.					
-		$(".ct_list_pop:nth-child(4n+6)" ).css("background-color" , "whitesmoke");
-		//console.log ( $(".ct_list_pop:nth-child(1)" ).html() );
-		//console.log ( $(".ct_list_pop:nth-child(2)" ).html() );
-		//console.log ( $(".ct_list_pop:nth-child(3)" ).html() );
-		console.log ( $(".ct_list_pop:nth-child(4)" ).html() ); //==> ok
-		//console.log ( $(".ct_list_pop:nth-child(5)" ).html() ); 
-		//console.log ( $(".ct_list_pop:nth-child(6)" ).html() ); //==> ok
-		//console.log ( $(".ct_list_pop:nth-child(7)" ).html() ); 
+	
 	
 	});
 	
@@ -72,86 +87,57 @@
 </script>
 </head>
 
-<body bgcolor="#ffffff" text="#000000">
-
-<div style="width: 98%; margin-left: 10px;">
-
-<form name="detailForm">
-
-<table width="100%" height="37" border="0" cellpadding="0"	cellspacing="0">
-	<tr>
-		<td width="15" height="37"><img src="/images/ct_ttl_img01.gif"width="15" height="37"></td>
-		<td background="/images/ct_ttl_img02.gif" width="100%" style="padding-left: 10px;">
-			<table width="100%" border="0" cellspacing="0" cellpadding="0">
-				<tr>
-					<td width="93%" class="ct_ttl01">베스트 top 10</td>
-				</tr>
-			</table>
-		</td>
-		<td width="12" height="37"><img src="/images/ct_ttl_img03.gif"	width="12" height="37"></td>
-	</tr>
-</table>
-
-<table width="100%" border="0" cellspacing="0" cellpadding="0"	style="margin-top: 10px;">
-	<tr>
-		<td colspan="11"></td>
-	</tr>
-	<tr>
-		<td class="ct_list_b" width="100">No</td>
-		<td class="ct_line02"></td>
-		<td class="ct_list_b" width="150">제품명<br>
-			<h7 >(상품명 click:상세정보)</h7>
-		</td>
-		<td class="ct_line02"></td>
-		<td class="ct_list_b" width="150">가격</td>
-		<td class="ct_line02"></td>
-		<td class="ct_list_b">미리보기</td>
-		<td class="ct_line02"></td>
-		<td class="ct_list_b">제품상세정보</td>
-	</tr>
-	<tr>
-		<td colspan="11" bgcolor="808285" height="1"></td>
-	</tr>
+<body>
 	
-	<c:set var="i" value="0" />
-	<c:forEach var="product" items ="${list}">
-		<c:set var="i" value="${i+1}"/>
-		<tr class="ct_list_pop">
-		<td align="center">
-			${i}
-		</td>
-		<td></td>
-		<td align="left">
-			<input type="hidden" id="prodNo" name="prodNo" value="${product.prodNo}"/>
-			<%-- <a href="/getUser.do?userId=${user.userId}">${user.userId}</a>--%>
-			${product.prodName}
-		</td>
-		<td></td>
-		<td align="left">
-		<fmt:formatNumber value="${product.price}" groupingUsed="true"/>
-		</td>
-		<td></td>
-		<td align="left" width="150">
-			<img src = "/images/uploadFiles/${product.fileName}" width="150" height="150"/>
-		</td>
-		<td></td>
-		<td align="center">
-			${product.prodDetail}
-		</td>
-		<td></td>
-	</tr>
-	<tr>
-		<td colspan="11" bgcolor="D6D7D6" height="1"></td>
-	</tr>
-
-	</c:forEach>
-</table>
-
-
-<!--  페이지 Navigator 끝 -->
-</form>
-
-</div>
+	<!-- ToolBar Start /////////////////////////////////////-->
+	<jsp:include page="/layout/toolbar.jsp" />
+   	<!-- ToolBar End /////////////////////////////////////-->
+	
+	<div class="container">
+		
+		<div class="page-header text-info">
+	       <h3>Best Top 10</h3>
+	    </div>
+	    
+	   <table class="table table-hover table-striped" >
+			
+		<thead>
+          <tr>
+            <th align="center">No</th>
+            <th align="left" >상품명</th>
+            <th align="left">가격</th>
+            <th align="left">미리보기</th>
+            <th align="left">제품상세정보</th>
+          </tr>
+        </thead>
+		
+		
+		<tbody>
+		
+		  <c:set var="i" value="0" />
+		  <c:forEach var="product" items="${list}">
+			<c:set var="i" value="${ i+1 }" />
+			<tr>
+			  <td align="center">${ i }</td>
+			  <td align="left">${product.prodName}
+			  	<input type="hidden" id="prodNo" name="prodNo" value="${product.prodNo}"/>
+			  </td>
+			  <td align="left">
+			 	 <fmt:formatNumber value="${product.price}" groupingUsed="true"/>
+			  </td>
+			  <td align="left" width="150">
+			  	<img src = "/images/uploadFiles/${product.fileName}" width="150" height="150"/>
+			  </td>  
+			  <td align="left">${product.prodDetail}</td>
+	  
+			</tr>
+          </c:forEach>
+        
+        </tbody>
+		
+		</table>
+	
+	</div>
 
 </body>
 </html>

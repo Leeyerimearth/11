@@ -30,29 +30,25 @@
 	         	<!-- Tool Bar 를 다양하게 사용하면.... -->
 	             <ul class="nav navbar-nav">
 	             
-	              <!--  회원관리 DrowDown -->
+	              <!--  회원관리 DrowDown(관리자) -->
+	              <c:if test="${sessionScope.user.role == 'admin'}">
 	              <li class="dropdown">
 	                     <a  href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
 	                         <span >회원관리</span>
 	                         <span class="caret"></span>
 	                     </a>
 	                     <ul class="dropdown-menu">
-	                         <li><a href="#">개인정보조회</a></li>
-	                         
-	                         <c:if test="${sessionScope.user.role == 'admin'}">
-	                         	<li><a href="#">회원정보조회</a></li>
-	                         </c:if>
-	                         
+	                         <li><a href="#">회원정보조회</a></li>
 	                         <li class="divider"></li>
 	                         <li><a href="#">etc...</a></li>
 	                     </ul>
 	                 </li>
-	                 
-	              <!-- 판매상품관리 DrowDown  -->
-	               <c:if test="${sessionScope.user.role == 'admin'}">
+ 
+	              <!-- 판매상품관리 DrowDown (관리자) -->
+	             
 		              <li class="dropdown">
 		                     <a  href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-		                         <span >상 품 관 리</span>
+		                         <span >상품관리</span>
 		                         <span class="caret"></span>
 		                     </a>
 		                     <ul class="dropdown-menu">
@@ -62,31 +58,53 @@
 		                         <li><a href="#">etc..</a></li>
 		                     </ul>
 		                </li>
+		                <li class="dropdown">
+		                     <a  href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+		                         <span >구매관리</span>
+		                         <span class="caret"></span>
+		                     </a>
+		                     <ul class="dropdown-menu">
+		                         <li><a href="#">구매내역관리</a></li>
+		                     </ul>
+		                </li>
+		                
 	                 </c:if>
 	                 
-	              <!-- 구매관리 DrowDown -->
+	              <!-- 상품구매 DrowDown (공통)-->
 	              <li class="dropdown">
 	                     <a  href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
 	                         <span >상품구매</span>
 	                         <span class="caret"></span>
 	                     </a>
 	                     <ul class="dropdown-menu">
+	                         <li><a href="#">Best Top 10</a></li>
+	                         <li><a href="#">신상품 NEW</a></li>
 	                         <li><a href="#">상품검색</a></li>
-	                         
-	                         <c:if test="${sessionScope.user.role == 'user'}">
-	                           <li><a href="#">구매이력조회</a></li>
-	                         </c:if>
-	                         
-	                         <li><a href="#">최근본상품</a></li>
 	                         <li class="divider"></li>
-	                         <li><a href="#">etc..</a></li>
+	                         <li><a href="#">최근본상품</a></li>
+
 	                     </ul>
-	                 </li>
-	                 
-	                 <li><a href="#">etc...</a></li>
+	                </li>
+
 	             </ul>
 	             
+	             <!-- 유저만 -->
 	             <ul class="nav navbar-nav navbar-right">
+	             	<c:if test="${sessionScope.user.role == 'user'}">
+	             		<li class="dropdown">
+	                     <a  href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+	                         <span >내 정보 보기</span>
+	                         <span class="caret"></span>
+	                     </a>
+	                     <ul class="dropdown-menu">
+	                         <li><a href="#">개인정보보기</a></li>
+	                         <li><a href="#">장바구니</a></li>
+	                         <li><a href="#">내 구매내역</a></li>
+	                 
+	                     </ul>
+	               		</li>
+	             	</c:if>
+	             	
 	                <li><a href="#">로그아웃</a></li>
 	            </ul>
 		</div>
@@ -118,7 +136,7 @@
 			}); 
 	
 			//=============  개인정보조회회 Event  처리 =============	
-	 		$( "a:contains('개인정보조회')" ).on("click" , function() {
+	 		$( "a:contains('개인정보보기')" ).on("click" , function() {
 	 			//==> DOM Object GET 3가지 방법 ==> 1. $(tagName) : 2.(#id) : 3.$(.className)
 				$(self.location).attr("href","/user/getUser?userId=${sessionScope.user.userId}");
 			});
@@ -131,6 +149,26 @@
 	 		$( "a:contains('판매상품관리')" ).on("click" , function() {
 	 			//==> DOM Object GET 3가지 방법 ==> 1. $(tagName) : 2.(#id) : 3.$(.className)
 				$(self.location).attr("href","/product/listProduct2?menu=manage");
+			});
+	 		
+	 		$( "a:contains('상품검색')" ).on("click" , function() {
+	 			//==> DOM Object GET 3가지 방법 ==> 1. $(tagName) : 2.(#id) : 3.$(.className)
+				$(self.location).attr("href","/product/listProduct?menu=search");
+			});
+	 		
+	 		$( "a:contains('구매내역관리')" ).on("click" , function() {
+	 			//==> DOM Object GET 3가지 방법 ==> 1. $(tagName) : 2.(#id) : 3.$(.className)
+				$(self.location).attr("href","/purchase/listPurchase?menu=manage");
+			});
+	 		
+	 		$( "a:contains('내 구매내역')" ).on("click" , function() {
+	 			//==> DOM Object GET 3가지 방법 ==> 1. $(tagName) : 2.(#id) : 3.$(.className)
+				$(self.location).attr("href","/purchase/listPurchase");
+			});
+	 		
+	 		$( "a:contains('Best Top 10')" ).on("click" , function() {
+	 			//==> DOM Object GET 3가지 방법 ==> 1. $(tagName) : 2.(#id) : 3.$(.className)
+				$(self.location).attr("href","/product/bestSellerList?menu=search");
 			});
 	 	
 		 });

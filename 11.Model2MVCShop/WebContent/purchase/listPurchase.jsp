@@ -2,6 +2,8 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
+<!DOCTYPE html>
+
 <%--
 <%@ page import="java.util.*"  %>
 <%@ page import="com.model2.mvc.service.domain.Purchase" %>
@@ -28,13 +30,33 @@
 
 --%>
 
-<html>
+<html  lang="ko">
 <head>
 <title>구매 관리</title>
 
-<link rel="stylesheet" href="/css/admin.css" type="text/css">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" >
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" >
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<link rel="stylesheet" href="/resources/demos/style.css">
 
-<script src="http://code.jquery.com/jquery-2.1.4.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" ></script>
+
+
+	<!-- Bootstrap Dropdown Hover CSS -->
+   <link href="/css/animate.min.css" rel="stylesheet">
+   <link href="/css/bootstrap-dropdownhover.min.css" rel="stylesheet">
+    <!-- Bootstrap Dropdown Hover JS -->
+   <script src="/javascript/bootstrap-dropdownhover.min.js"></script>
+
+<!--  ///////////////////////// CSS ////////////////////////// -->
+	<style>
+	  body {
+            padding-top : 50px;
+        }
+    </style>
+
 <script type="text/javascript">
 	function fncGetPurchaseList(currentPage) {
 		
@@ -46,7 +68,7 @@
 	
 	$(function(){
 		
-		$( ".ct_list_pop td:nth-child(1)" ).on("click" , function() {
+		$( "td:nth-child(1)" ).on("click" , function() {
 			//Debug..
 				//alert( $('input[id=prodNo]').val() );
 				alert( $(this).find('input').val()); //$('input[id=prodNo]').val() );
@@ -55,7 +77,7 @@
 		
 		});
 	
-		$( ".ct_list_pop td:contains('배송하기')" ).on("click" , function() {
+		$( "td:contains('배송하기')" ).on("click" , function() {
 			//Debug..
 				
 				alert($(this).find("input[id=currentPage1]").val() ); //$('input[id=prodNo]').val() );
@@ -66,189 +88,98 @@
 		});
 		
 		
-		$("#before").on("click", function(){
-			
-			fncGetUserList('${ resultPage.currentPage-1}');
-		})
-		
-		$("#after").on("click", function(){
-			
-			fncGetUserList('${resultPage.endUnitPage+1}');
-		})
+		//1번째 인자 No를 색변경
+		$( "td:nth-child(1)" ).css("color" , "red");
 		
 	
-		//1번째 인자 No를 색변경
-		$( ".ct_list_pop td:nth-child(1)" ).css("color" , "red");
-		$("h7").css("color" , "red");
-		
-		
-		
-		//==> 아래와 같이 정의한 이유는 ??
-		//==> 아래의 주석을 하나씩 풀어 가며 이해하세요.					
-		$(".ct_list_pop:nth-child(4n+6)" ).css("background-color" , "whitesmoke");
-		//console.log ( $(".ct_list_pop:nth-child(1)" ).html() );
-		//console.log ( $(".ct_list_pop:nth-child(2)" ).html() );
-		//console.log ( $(".ct_list_pop:nth-child(3)" ).html() );
-		console.log ( $(".ct_list_pop:nth-child(4)" ).html() ); //==> ok
-		//console.log ( $(".ct_list_pop:nth-child(5)" ).html() ); 
-		//console.log ( $(".ct_list_pop:nth-child(6)" ).html() ); //==> ok
-		//console.log ( $(".ct_list_pop:nth-child(7)" ).html() ); 
-		
 	});
 	
 </script>
 </head>
 
-<body bgcolor="#ffffff" text="#000000">
+<body>
 
-<div style="width: 98%; margin-left: 10px;">
+	<!-- ToolBar Start /////////////////////////////////////-->
+	<jsp:include page="/layout/toolbar.jsp" />
+   	<!-- ToolBar End /////////////////////////////////////-->
+   	
+   	<div class="container">
+   		
+   		<div class="page-header text-info">
+	       <h3>구매내역관리</h3>
+	    </div>
+   		
+   		<div class="row">
+   			<div class="col-md-6 text-left">
+		    	<p class="text-primary">
+		    		전체  ${resultPage.totalCount } 건수, 현재 ${resultPage.currentPage}  페이지
+		    	</p>
+		    </div>
+   		</div>
+   		
+   		<table class="table table-hover table-striped" >
+      
+        <thead>
+          <tr>
+            <th align="center">No</th>
+            <th align="left" >제품명</th>
+            <th align="left">구매자</th>
+            <th align="left">총 구매가격</th>
+            <th align="left">구매개수</th>
+            <th align="left">구매일</th>
+            <th align="left">배송현황</th>
+          </tr>
+        </thead>
+       
+		<tbody>
+		
+		  <c:set var="i" value="0" />
+		  <c:forEach var="purchase" items="${list}">
+			<c:set var="i" value="${ i+1 }" />
+			<tr>
+			  <td align="center" title="Click : 상세정보">
+			  	<input type="hidden" id="tranNo" name="tranNo" value="${purchase.tranNo}"/>
+			  	${ i }
+			  </td>
+			  <td align="left">${purchase.purchaseProd.prodName}</td>
+			  <td align="left">${purchase.buyer.userId}</td>
+			  <td align="left"> 
+			  <fmt:formatNumber value="${purchase.purchaseProd.price}" groupingUsed="true"/>
+			  </td>
+			  <td align="left">${purchase.buyQuantity}</td>
+			  <td align="left">${purchase.orderDate}</td>
+			  
+			  <td align="left">현재
+				<c:if test="${purchase.tranCode=='002'}">
+					배송중 상태 입니다.
+				</c:if>
+				<c:if test="${purchase.tranCode=='003'}">
+					배송완료 상태 입니다.
+				</c:if>
+				<c:if test="${purchase.tranCode=='004'}">
+					구매완료 상태 입니다.
+				
+					<input type="hidden" id ="currentPage1" name="currentPage1" value="${resultPage.currentPage}"/>
+					 배송하기 
+				</c:if>
+				<c:if test="${purchase.tranCode=='005'}">
+					구매취소 상태 입니다.
+				</c:if>
 
-<form name="detailForm">
-
-<table width="100%" height="37" border="0" cellpadding="0"	cellspacing="0">
-	<tr>
-		<td width="15" height="37"><img src="/images/ct_ttl_img01.gif"width="15" height="37"></td>
-		<td background="/images/ct_ttl_img02.gif" width="100%" style="padding-left: 10px;">
-			<table width="100%" border="0" cellspacing="0" cellpadding="0">
-				<tr>
-					<td width="93%" class="ct_ttl01">구매 관리 </td>
-				</tr>
-			</table>
-		</td>
-		<td width="12" height="37"><img src="/images/ct_ttl_img03.gif"	width="12" height="37"></td>
-	</tr>
-</table>
-
-<table width="100%" border="0" cellspacing="0" cellpadding="0"	style="margin-top: 10px;">
-	<tr>
-		<td colspan="11">전체 ${resultPage.totalCount} 건수, 현재 ${resultPage.currentPage} 페이지</td>
-	</tr>
-	<tr>
-		<td class="ct_list_b" width="100">No<br>
-			<h7 >(No click:상세정보)</h7> </td>
-		<td class="ct_line02"></td>
-		<td class="ct_list_b" width="150">제품명</td>
-		<td class="ct_line02"></td>
-		<td class="ct_list_b" width="100">구매자</td>
-		<td class="ct_line02"></td>
-		<td class="ct_list_b" width="100">총 구매가격</td>
-		<td class="ct_line02"></td>
-		<td class="ct_list_b">구매개수</td>
-		<td class="ct_line02"></td>
-		<td class="ct_list_b">구매일</td>
-		<td class="ct_line02"></td>
-		<td class="ct_list_b">배송현황</td>
-	</tr>
-	<tr>
-		<td colspan="15" bgcolor="808285" height="1"></td>
-	</tr>
-	<%-- 
-	<% 	
-		int no=list.size();
-		String code =null;
-		for(int i=0; i<list.size(); i++) {
-			Purchase vo = (Purchase)list.get(i);
-			code = vo.getTranCode();
-			
-			if(code.equals("001"))
-				code="판매중";
-			else if(code.equals("002"))
-				code="배송중";
-			else if(code.equals("003"))
-				code="배송완료";
-			else if(code.equals("004"))
-				code="구매완료";
-	%>
-	--%>
-	<c:set var="i" value="0" />
-	<c:forEach var="purchase" items ="${list}">
-		<c:set var="i" value="${i+1}"/>
-		<tr class="ct_list_pop">
-		<td align="center">
-			<input type="hidden" id="tranNo" name="tranNo" value="${purchase.tranNo}"/>
-			<!-- ///////////////////////////////////////////////////////////////////////
-			<a href="/purchase/getPurchase?tranNo=${purchase.tranNo}">${i}</a>
-			//////////////////////////////////////////////////////////////////////////////
-			-->
-			${i}
-		</td>
-		<td></td>
-		<td align="left">
-			<%-- <a href="/getUser.do?userId=${user.userId}">${user.userId}</a>--%>
-			${purchase.purchaseProd.prodName}
-		</td>
-		<td></td>
-		<td align="left">
-			<%-- <a href="/getUser.do?userId=${user.userId}">${user.userId}</a>--%>
-			${purchase.buyer.userId}
-		</td>
-		<td></td>
-		<td align="left">
-		<fmt:formatNumber value="${purchase.purchaseProd.price}" groupingUsed="true"/>
-		</td>
-		<td></td>
-		<td align="left">${purchase.buyQuantity}</td>
-		<td></td>
-		<td align="left">${purchase.orderDate}</td>
-		<td></td>
-		<td align="left">현재
-		<c:if test="${purchase.tranCode=='002'}">
-			배송중 상태 입니다.
-		</c:if>
-		<c:if test="${purchase.tranCode=='003'}">
-			배송완료 상태 입니다.
-		</c:if>
-		<c:if test="${purchase.tranCode=='004'}">
-			구매완료 상태 입니다.
-			<!--/////////////////////////////////////////////////////////////////////////  
-			<input type="hidden" id ="tranNo" name="tranNo" value="${purchase.tranNo}"/> 
-			/////////////////////////////////////////////////////////////////////////////parent로 해보자-->
-			
-			<input type="hidden" id ="currentPage1" name="currentPage1" value="${resultPage.currentPage}"/>
-			
-			<!--/////////////////////////////////////////////////////////////////////////////////////////////
-			<a href="/purchase/updateTranCode?tranNo=${purchase.tranNo}&currentPage=${resultPage.currentPage}">배송하기</a>
-			 /////////////////////////////////////////////////////////////////////////////////////////////-->
-			 배송하기 
-		</c:if>
-		<c:if test="${purchase.tranCode=='005'}">
-			구매취소 상태 입니다.
-		</c:if>
-
-		</td>
-		<td></td>
-		<%--
-		<td align="left">
-			<%
-				if(code.equals("배송중")){
-			%>
-			<a href="/updateTranCode.do?prodNo=<%=vo.getPurchaseProd().getProdNo() %>">물건도착</a>
-			<%} %>
-		</td>
-		--%>
-	</tr>
-	<tr>
-		<td colspan="15" bgcolor="D6D7D6" height="1"></td>
-	</tr>
-	<%--<%} %> --%>
-	</c:forEach>
-</table>
-
-<table width="100%" border="0" cellspacing="0" cellpadding="0" style="margin-top: 10px;">
-	<tr>
-		<td align="center">
-		 <input type="hidden" id="currentPage" name="currentPage" value=""/>
-			
-			 	<jsp:include page="../common/purchasePageNavigator.jsp"/>
-			
-		</td>
-	</tr>
-</table>
-
-<!--  페이지 Navigator 끝 -->
-</form>
-
-</div>
-
+			  </td>
+			 
+			</tr>
+          </c:forEach>
+        
+        </tbody>
+      
+      </table>
+   	
+   	</div>
+   	
+   	<!-- PageNavigation Start... -->
+	<jsp:include page="../common/purchasePageNavigator_new.jsp"/>
+	<!-- PageNavigation End... -->
+   	
 </body>
 </html>

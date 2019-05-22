@@ -65,7 +65,7 @@ public class Product {
 		System.out.println(manuDate);
 		for(int i=0; i<manuDate.length();i++)
 		{
-			if(manuDate.charAt(i)!='-')
+			if(manuDate.charAt(i)!='-'&&manuDate.charAt(i)!='/')
 			{
 				splitDate += manuDate.charAt(i);
 			}

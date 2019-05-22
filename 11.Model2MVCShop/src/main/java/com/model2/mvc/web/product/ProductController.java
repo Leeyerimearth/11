@@ -119,7 +119,7 @@ public class ProductController {
 		System.out.println(search.getOrderCondition());
 		if(search.getOrderCondition()== null)
 		{
-			search.setOrderCondition("100"); //원래 처음 정렬(prod_no)  1 높은가격순 2 낮은가격순
+			search.setOrderCondition("0"); //원래 처음 정렬(prod_no)  1 높은가격순 2 낮은가격순
 		}
 		if(search.getCurrentPage() ==0 ){
 			search.setCurrentPage(1);
@@ -133,6 +133,8 @@ public class ProductController {
 		model.addAttribute("list", map.get("list"));
 		model.addAttribute("resultPage", resultPage);
 		model.addAttribute("search", search);
+		
+		System.out.println(search);
 		
 		session.setAttribute("menu", menu);
 		

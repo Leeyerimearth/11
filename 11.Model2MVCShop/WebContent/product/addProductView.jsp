@@ -20,10 +20,11 @@
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <!--  ///////////////////////// CSS ////////////////////////// -->
+
 <style>
 body>div.container {
 	border: 3px solid #D6CDB7;
-	margin-top: 10px;
+	margin-top: 50px;
 }
 </style>
 
@@ -80,15 +81,6 @@ body>div.container {
 
 	$(function() {
 
-		$(".ct_btn01:contains('취소')").on("click", function() {
-
-			resetData();
-		});
-
-		$(".ct_btn01:contains('등록')").on("click", function() {
-
-			fncAddProduct();
-		});
 		
 		$("#manuDate").datepicker();
 		
@@ -97,7 +89,7 @@ body>div.container {
 		});
 		
 		$("a[href='#' ]").on("click" , function() { // 취소
-			$("form")[0].reset();
+			resetData();
 		});
 
 	});
@@ -106,7 +98,14 @@ body>div.container {
 
 <body>
 	
-	<jsp:include page="/layout/toolbar.jsp" />
+	<!-- ToolBar Start /////////////////////////////////////-->
+	<div class="navbar  navbar-default">
+        <div class="container">
+        	<jsp:include page="/layout/toolbar.jsp" />
+   		</div>
+   	</div>
+   	<!-- ToolBar End /////////////////////////////////////-->
+
    	
    	<div class="container">
    	

@@ -235,21 +235,26 @@ public class PurchaseController {
 		Purchase purchase = purchaseService.getPurchase(tranNo); //tranNo로 수정
 	
 		
-		if(tranCode.equals("005")) //구매취소일때
-		{
-			
-			purchase.setTranCode(tranCode); //구매취소는 VO tranCode를  005로셋팅
-			purchase.setPayAmount(0);
-			if(purchase.getPaymentOption().equals("ca"))
+		if(tranCode!=null) {
+		
+			if(tranCode.equals("005")) //구매취소일때
 			{
-				purchase.setPaymentOption("1");
+
+				purchase.setTranCode(tranCode); //구매취소는 VO tranCode를  005로셋팅
+				purchase.setPayAmount(0);
+				if(purchase.getPaymentOption().equals("ca"))
+				{
+					purchase.setPaymentOption("1");
+				}
+				else
+					purchase.setPaymentOption("2");
+				purchaseService.updatePurcahse(purchase); //구매취소하면 pay_amount를 0을 만들어버림
 			}
-			else
-				purchase.setPaymentOption("2");
-			purchaseService.updatePurcahse(purchase); //구매취소하면 pay_amount를 0을 만들어버림
 		}
 		
+		System.out.println("?");
 		purchaseService.updateTranCode(purchase);// tranCode set은 여기서
+		
 		
 		////////////////////////////////////////////////////////////////////////////2%point설정(배송완료됐을때)
 		if( Integer.parseInt(purchase.getTranCode())==2) //002배송중~~~> 003배송완료 하면~
@@ -277,9 +282,5 @@ public class PurchaseController {
 			return "forward:/purchase/listPurchase";
 	}
 
-	//@RequestMapping("/updateTranCodeByProd.do") 아니 왜있냐고?
-	//public String updateTranCodeByProd()
-	//{
-		
-	//}
+
 }

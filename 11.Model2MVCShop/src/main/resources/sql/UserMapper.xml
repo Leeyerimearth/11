@@ -42,9 +42,9 @@
 	   	UPDATE users
 	   	<set>
 	   		user_name 	= #{userName} ,
-			cell_phone	= #{phone},
-			addr 				= #{addr} ,
-			email				=	#{email},
+			cell_phone	= #{phone:VARCHAR},
+			addr 				= #{addr:VARCHAR} ,
+			email				=	#{email:VARCHAR},
 			point =#{userPoint:NUMERIC},
 			total_payment = #{totalPayment:NUMERIC}
 	   	</set>
