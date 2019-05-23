@@ -86,4 +86,11 @@ public class PurchaseDaoImpl implements PurchaseDao{
 		return sqlSession.selectOne("PurchaseMapper.getTotalCount", map);
 	}
 
+
+	@Override
+	public void updateReviewCode(Purchase purchase) {
+		
+		sqlSession.update("PurchaseMapper.updateReviewCode", purchase);
+	}
+
 }

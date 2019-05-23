@@ -15,12 +15,22 @@ public class Purchase {
 	private Product purchaseProd;//
 	private String receiverName;//
 	private String receiverPhone;//
-	private String tranCode; //add에서 셋 등 .상황에따라
+	private String tranCode; // 002배송중 003배송완료 004구매완료 005구매취소
 	private int tranNo; //자동
 	
 	private int buyQuantity;
 	private int payAmount;
+	private String reviewCode; // 1. added(새로작성)  DB에는 'Y'/'N' 입니다.
+
 	/////////////////////////////////////////////////////////////////(추가)
+	public String getReviewCode() {
+		return reviewCode;
+	}
+
+	public void setReviewCode(String reviewCode) {
+		this.reviewCode = reviewCode;
+	}
+
 	public int getBuyQuantity() {
 		return buyQuantity;
 	}
@@ -117,6 +127,6 @@ public class Purchase {
 				+ paymentOption + ", purchaseProd=" + purchaseProd
 				+ ", receiverName=" + receiverName + ", receiverPhone="
 				+ receiverPhone + ", tranCode=" + tranCode + ", tranNo="
-				+ tranNo +"buyQuantity"+buyQuantity+"]";
+				+ tranNo +"buyQuantity"+buyQuantity+"reviewCode="+reviewCode+ "]";
 	}
 }

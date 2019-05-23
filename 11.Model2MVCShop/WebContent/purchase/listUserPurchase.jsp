@@ -67,18 +67,16 @@
 	
 	}
 	
-	function addReview(){
+	function addReview(tranNo,prodNo,selectedPurchase){
 		
 		alert($("#txtArea").val());
 		var textareaContext = $("#txtArea").val();
-		var tranNo = ;
-		var prodNo = ;
-		
+
 		//json으로 tranNo랑 userId에 대한게 있으면 리뷰쓰기 삭제해야하나.
 		
 		$.ajax({
 
-			url : "/purchase/json/addReview",
+			url : "/review/json/addReview",
 			method : "POST",
 			headers : { // 보내는거 json
 				"Accept" : "application/json",
@@ -87,19 +85,18 @@
 			
 			data : JSON.stringify({ //보내는 data jsonString화
 				
-				tranNo : $("input[name=searchKeyword]").val(),
-				prodNo : $("select[name=searchCondition]").val(),
+				tranNo : tranNo,
+				prodNo : prodNo,
 				reviewContext : textareaContext 
 			}),
 			dataType : "text",
-			success : function(serverData, status) {
+			success : function() {
+				
+				//받는 데이터 필요없고, success이면!
+				alert(selectedPurchase.html());
+				selectedPurchase.html("<span class='glyphicon glyphicon-ok' ria-hidden='true'></span>")
 
-				var array = JSON.parse(serverData);
-
-				//alert(array);
-				$("input#searchKeyword").autocomplete({
-					source : array
-				});
+				
 			}
 		});
 		
@@ -107,6 +104,9 @@
 	
 	$(function(){
 		
+		var tranNo;
+		var prodNo;
+		var selectedPurchase;
 		
 		$( "td:nth-child(1)" ).on("click" , function() {
 			//Debug..
@@ -129,10 +129,10 @@
 		
 		$("td:contains('리뷰작성')").on("click", function(){
 			
-			alert($(this).parent().find("input[id=tranNo]"));
-			alert($(this).parent().find("input[id=prodNo]"));
-			$("#dialogTranNo").val($(this).parent().find("input[id=tranNo]"));
-			alert($("#dialogTranNo").val());
+			tranNo = $(this).parent().find("input[id=tranNo]").val();
+			prodNo = $(this).parent().find("input[id=prodNo]").val();
+			selectedPurchase = $(this);
+			alert("selectedPurchase : "+selectedPurchase);
 			dialog.dialog("open")
 			
 		});
@@ -149,7 +149,8 @@
 		        },
 				
 		 		"등록": function() {
-		 		  addReview();
+		 		  alert("tranNo:"+tranNo);
+		 		  addReview(tranNo,prodNo,selectedPurchase);
 	          	  dialog.dialog( "close" );
 	        	}
 		
@@ -188,8 +189,8 @@
 			<fieldset>
 		       <label for="txtArea"><h3>어떤 점이 좋았나요?</h3></label>
 		       <textarea id="txtArea" rows="20" cols="45" class="text ui-widget-content ui-corner-all" ></textarea>
-				<input type="hidden" id="dialogTranNo" name="dialogTranNo" value=""/>
-				<input type="hidden" id="dialogProdNo" name="dialogProdNo" value=""/>
+				<!--  <input type="hidden" id="dialogTranNo" name="dialogTranNo" value=""/>
+				<input type="hidden" id="dialogProdNo" name="dialogProdNo" value=""/>-->
 			</fieldset>
 		</form>
 	</div>
@@ -260,7 +261,12 @@
 			  </td>
 			  <td align="left">
 				<c:if test="${purchase.tranCode=='003'}">
-					리뷰작성
+					<c:if test="${purchase.reviewCode=='Y'}">
+						<span class="glyphicon glyphicon-ok" ria-hidden="true"></span>
+					</c:if>
+					<c:if test="${purchase.reviewCode=='N'}">
+						리뷰작성
+					</c:if>
 				</c:if>
 			  </td>
 			 

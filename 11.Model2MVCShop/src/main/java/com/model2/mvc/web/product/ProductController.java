@@ -22,8 +22,10 @@ import org.springframework.web.multipart.MultipartFile;
 import com.model2.mvc.common.Page;
 import com.model2.mvc.common.Search;
 import com.model2.mvc.service.domain.Product;
+import com.model2.mvc.service.domain.Review;
 import com.model2.mvc.service.domain.User;
 import com.model2.mvc.service.product.ProductService;
+import com.model2.mvc.service.review.ReviewService;
 
 @Controller
 @RequestMapping("/product/*")
@@ -32,6 +34,10 @@ public class ProductController {
 	@Autowired
 	@Qualifier("productServiceImpl")
 	private ProductService productService;
+	
+	@Autowired
+	@Qualifier("reviewServiceImpl")
+	private ReviewService reviewService;
 	
 	@Value("#{commonProperties['pageUnit']}")
 	int pageUnit;
@@ -61,7 +67,7 @@ public class ProductController {
 	
 	@RequestMapping(value="getProduct", method=RequestMethod.GET)
 	public String getProduct(@RequestParam("prodNo") String prodNo,HttpSession session,HttpServletRequest request,
-									HttpServletResponse response) throws Exception
+									HttpServletResponse response,Model model) throws Exception
 	{
 		System.out.println("/product/getProduct");
 		
@@ -72,9 +78,13 @@ public class ProductController {
 		System.out.println(cookieString);
 		
 		session.setAttribute("vo", vo);
-		
+		/////////////////////////////////////////////////review
+		List<Review> reviewList = reviewService.getReviewList(Integer.parseInt(prodNo));
+		System.out.println("reviewList:"+reviewList);
 		
 		String menu = (String) session.getAttribute("menu");
+		model.addAttribute("list", reviewList);
+		
 		System.out.println(menu);
 		
 		if(menu.equals("manage"))
@@ -130,12 +140,11 @@ public class ProductController {
 		Page resultPage	= 
 				new Page( search.getCurrentPage(), ((Integer)map.get("totalCount")).intValue(), pageUnit, pageSize);
 		
+		
 		model.addAttribute("list", map.get("list"));
 		model.addAttribute("resultPage", resultPage);
 		model.addAttribute("search", search);
-		
 		System.out.println(search);
-		
 		session.setAttribute("menu", menu);
 		
 		return "forward:/product/listProduct.jsp";

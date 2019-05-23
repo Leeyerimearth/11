@@ -20,5 +20,7 @@ public interface PurchaseDao {
 	
 	public void updateTranCode(Purchase purchase);
 	
+	public void updateReviewCode(Purchase purchase);
+	
 	public int getTotalCount(Search search,String buyerId);
 }

@@ -132,6 +132,12 @@ public class PurchaseServiceImpl  implements PurchaseService{
 		// TODO Auto-generated method stub
 		purchaseDao.updateTranCode(purchase);
 	}
+
+	@Override
+	public void updateReviewCode(Purchase purchase) {
+		
+		purchaseDao.updateReviewCode(purchase);
+	}
 	
 	
 }

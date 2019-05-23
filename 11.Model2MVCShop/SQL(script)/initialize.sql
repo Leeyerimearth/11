@@ -11,7 +11,7 @@ DROP SEQUENCE seq_review_review_no;
 CREATE SEQUENCE seq_product_prod_no		 	INCREMENT BY 1 START WITH 10000;
 CREATE SEQUENCE seq_transaction_tran_no	   INCREMENT BY 1 START WITH 10000;
 CREATE SEQUENCE seq_review_review_no		INCREMENT BY 1 START WITH 10000;
-
+CREATE SEQUENCE seq_cart_cart_no 			INCREMENT BY 1 START WITH 10000;
 
 CREATE TABLE users ( 
 	user_id 			VARCHAR2(20)	NOT NULL,
@@ -64,6 +64,26 @@ CREATE TABLE review(
 	PRIMARY KEY(review_no)
 
 );
+
+CREATE TABLE cart(
+
+	cart_no			NUMBER		NOT NULL,
+	prod_no			NUMBER		NOT NULL 	REFERENCES product(prod_no),
+	user_id			VARCHAR2(20)	NOT NULL REFERENCES users(user_id),
+	add_date		DATE,
+	PRIMARY KEY(cart_no)
+);
+
+
+ALTER TABLE users ADD(point NUMBER(7));
+ALTER TABLE users ADD(total_payment NUMBER(15));
+
+ALTER TABLE product ADD(quantity NUMBER(3));
+ALTER TABLE product ADD(sale_quantity NUMBER(3));
+
+ALTER TABLE transaction ADD(buy_quantity NUMBER(3));
+ALTER TABLE transaction ADD(pay_amount NUMBER(10));
+ALTER TABLE transaction ADD(review_code CHAR(1) DEFAULT 'N');
 
 
 INSERT 

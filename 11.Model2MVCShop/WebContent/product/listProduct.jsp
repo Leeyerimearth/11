@@ -63,11 +63,27 @@
 <script type="text/javascript">
 	
 	//var dialogProdNo = null; 일단 전역쓰면 안댄다
+	
+	var ranoutOrNot;
+	
+	var buttons = {
+		'제품상세보기' : function() {
+			//alert("제품상세보기");
+			dialog.dialog("close");
+			//alert("제품상세보기2");
+			readProduct(); // 제품상세보기 page
+		},
+		"구매" : function() {
+			dialog.dialog("close");
+			purchaseProduct();
+		}//구매버튼 funciton 끝
+		
+	}
 
 	function fncGetProductList(currentPage) {
 
 		$("#currentPage").val(currentPage)
-		$("form").attr("method", "POST").attr("action", "/product/listProduct?menu=search").submit();
+		$("form").attr("method", "POST").attr("action","/product/listProduct?menu=search").submit();
 
 		// jQuery로 수정!
 		//document.getElementById("currentPage").value = currentPage;
@@ -106,14 +122,20 @@
 	}
 
 	function readProduct() {
-		
+
 		//alert("readProduct 실행되냐?")
 		//alert( $("#dialogProdNo").val() );
-		self.location = "/product/getProduct?prodNo="+$("#dialogImage").val(); //prod_no
+		self.location = "/product/getProduct?prodNo=" + $("#dialogImage").val(); //prod_no
 	}
 	function purchaseProduct() {
-
-		self.location = "/purchase/addPurchase?prodNo="+$("#dialogImage").val(); //prod_no
+		
+		if(ranoutOrNot=='품절')
+		{
+			alert("품절상품입니다.");
+			return;
+		}
+		self.location = "/purchase/addPurchase?prodNo="
+				+ $("#dialogImage").val(); //prod_no
 	}
 
 	$(function() {
@@ -130,18 +152,7 @@
 			height : 400,
 			width : 350,
 			modal : true,
-			buttons : {
-				"제품상세보기" : function() {
-					//alert("제품상세보기");
-					dialog.dialog("close");
-					//alert("제품상세보기2");
-					readProduct(); // 제품상세보기 page
-				},
-				"구매" : function() {
-					dialog.dialog("close");
-					purchaseProduct();
-				}
-			},
+			buttons : buttons,
 			close : function() {
 				form[0].reset();
 				dialog.dialog("close");
@@ -156,16 +167,20 @@
 		});
 
 		// No 클릭하면? No 클릭 event  prodNo보내기 체크
-		$( "td:nth-child(2)" ).on( "click",
-						
-				function() {
+		$("td:nth-child(2)")
+				.on(
+						"click",
+
+						function() {
 							//Debug..
 							alert($(this).find('input').val());
+							ranoutOrNot = $(this).parent().find('#quantity')
+									.text().trim();
+							alert("_" + ranoutOrNot + "_");
+
 							///////////////////////classic web에서 ajax web으로 변경
 							//self.location ="/product/getProduct?prodNo="+$(this).find('input').val(); //prod_no
-
 							$.ajax({
-
 										url : "/product/json/getProduct/"
 												+ $(this).find('input').val(),
 										method : "GET",
@@ -173,32 +188,29 @@
 										success : function(serverData, status) {
 											//alert(status);
 											//alert(serverData);
-
 											var JSONData = $
 													.parseJSON(serverData); // json 객체로 변경			
-
 											// 밑에 다이얼로그 소스를 받아온 이미지Set
+											var displayValue = "<img src = \"/images/uploadFiles/"+JSONData.fileName+"\" width =\"300\" height=\"300\"/>";
 
-											var displayValue = "<img src = \"/images/uploadFiles/"+JSONData.fileName+"\"/>";
-											
 											//alert(JSONData.fileName);
 											//alert(displayValue);
 
 											//function에서도 사용할수있는 prodNo지정
-											$("#dialogImage").val(JSONData.prodNo); //dialog에 현재 클릭한 상품 prodNo 셋팅
+											$("#dialogImage").val(
+													JSONData.prodNo); //dialog에 현재 클릭한 상품 prodNo 셋팅
 											//alert($("#dialogImage").val());
 
-											$("#dialogImage").html(displayValue); //dialog 이미지태그 넣기
-
+											$("#dialogImage")
+													.html(displayValue); //dialog 이미지태그 넣기
 											dialog.dialog("open");
 										}
 
-									});
-
+									}); //ajax끝
 						});
 
 		///////////////////////////////////////////////////////////////////////
-		
+
 		$("input[name=searchKeyword]").keyup(function() {
 
 			fncAutoComplete();
@@ -210,21 +222,19 @@
 			alert("highPrice");
 			fncGetProductList(1);
 		});
-*/
+		 */
 		$("#lowprice").click(function() {
 
-			alert("lowprice");
-			fncGetProductList(1);
+			alert($("#lowprice").html());
+			$("#currentPage").val(1)
+			$("form").attr("method", "POST").attr("action","/product/listProduct?menu=search").submit();
 		})
 
 		////////////////////////////////////////////////////////////////////////////
 		//productName글씨 빨간색으로 변경	
 		$("td:nth-child(2)").css("color", "red");
-		
-
 
 	});
-	
 </script>
 </head>
 
@@ -330,13 +340,15 @@
 			 	 <fmt:formatNumber value="${product.price}" groupingUsed="true"/>
 			  </td>
 			  <td align="left">${product.prodDetail}</td>
-	  
-			  <c:if test="${product.quantity >= 1}">
-			  <td align="center">판매중
-			  </c:if>
-			  <c:if test="${product.quantity <= 0}">
-			  <td align="center">품절
-			  </c:if>
+	  		
+			  <td align="center" id ="quantity">
+			  	<c:if test="${product.quantity >= 1}">
+			 	 	판매중
+			  	</c:if>
+			  	<c:if test="${product.quantity <= 0}">
+			  		품절
+			  	</c:if>
+			  </td>
 			 
 			</tr>
           </c:forEach>

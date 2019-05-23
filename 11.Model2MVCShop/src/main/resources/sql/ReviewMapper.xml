@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE mapper
+		PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+		"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="ReviewMapper">
+ 	
+ 	
+	<resultMap id="reviewSelectMap" type="review">
+		<result property="reviewNo" 			column="review_no" 			jdbcType="NUMERIC"/>
+		<result property="tranNo"				column="tran_no" 		jdbcType="NUMERIC" />
+		<result property="prodNo" 				column="prod_no" 		jdbcType="NUMERIC" />
+		<result property="writerId" 			column="writer_id" 			jdbcType="VARCHAR" />
+		<result property="reviewContext" 		column="review_context" 		jdbcType="VARCHAR" />
+		<result property="writeDate" 			column="write_date" 		jdbcType="DATE" />
+	</resultMap>
+	
+	<!-- SQL : INSERT -->
+	<insert 	id="addReview"		parameterType="review" >
+	 	INSERT
+		INTO review( review_no , tran_no , prod_no , writer_id , review_context, write_date) 
+		VALUES	 (	seq_review_review_no.NEXTVAL , #{tranNo} , #{prodNo} , #{writerId} , 
+		#{reviewContext:VARCHAR} , SYSDATE )
+	 </insert>
+	 
+	 <select	id="getReviewList" parameterType="int" resultMap ="reviewSelectMap">
+	 	SELECT review_no, tran_no, prod_no, writer_id, review_context, write_date
+	 	FROM review
+	 	WHERE prod_no = #{value}
+	 </select>
+	 
+</mapper>
