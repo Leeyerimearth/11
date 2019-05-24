@@ -1,5 +1,6 @@
 package com.model2.mvc.service.product.impl;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -7,9 +8,11 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.model2.mvc.common.Search;
 import com.model2.mvc.service.domain.Product;
+import com.model2.mvc.service.domain.ProductImage;
 import com.model2.mvc.service.product.ProductDao;
 import com.model2.mvc.service.product.ProductService;
 import com.model2.mvc.service.purchase.PurchaseDao;
@@ -43,10 +46,22 @@ public class ProductServiceImpl implements ProductService {
 	}
 
 	@Override
-	public void addProduct(Product product) throws Exception {
+	public void addProduct(Product product,List<MultipartFile> multipartFile) throws Exception {
 		// TODO Auto-generated method stub
-
-		productDao.insertProduct(product);
+		
+		List<String> list = new ArrayList<String>(); // image name만을 담을
+		
+		if(multipartFile != null) {
+			
+			//ProductImage productImage = new ProductImage(); 일단 안만들고 해보기
+			
+			for(int i=0 ; i< multipartFile.size(); i++ )
+			{
+				list.set(i, multipartFile.get(i).getOriginalFilename());
+			}
+			
+		}
+		productDao.insertProduct(product,list);
 	}
 
 	@Override

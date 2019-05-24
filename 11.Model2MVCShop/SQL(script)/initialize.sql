@@ -74,12 +74,19 @@ CREATE TABLE cart(
 	PRIMARY KEY(cart_no)
 );
 
+CREATE TABLE Images(
+	
+	prod_no  		NUMBER		NOT NULL REFERENCES product(prod_no),
+	image_file 					VARCHAR2(100)		NOT NULL
+);
+
 
 ALTER TABLE users ADD(point NUMBER(7));
 ALTER TABLE users ADD(total_payment NUMBER(15));
 
 ALTER TABLE product ADD(quantity NUMBER(3));
 ALTER TABLE product ADD(sale_quantity NUMBER(3));
+ALTER TABLE product DROP COLUMN IMAGE_FILE;
 
 ALTER TABLE transaction ADD(buy_quantity NUMBER(3));
 ALTER TABLE transaction ADD(pay_amount NUMBER(10));

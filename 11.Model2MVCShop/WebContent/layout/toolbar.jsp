@@ -170,6 +170,11 @@
 	 			//==> DOM Object GET 3가지 방법 ==> 1. $(tagName) : 2.(#id) : 3.$(.className)
 				$(self.location).attr("href","/product/bestSellerList?menu=search");
 			});
+	 		
+	 		$( "a:contains('장바구니')" ).on("click" , function() {
+	 			//==> DOM Object GET 3가지 방법 ==> 1. $(tagName) : 2.(#id) : 3.$(.className)
+				$(self.location).attr("href","/cart/getCartList?userId=${sessionScope.user.userId}");
+			});
 	 	
 		 });
 		

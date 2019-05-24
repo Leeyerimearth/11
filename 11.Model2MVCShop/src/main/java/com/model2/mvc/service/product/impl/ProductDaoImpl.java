@@ -52,9 +52,10 @@ public class ProductDaoImpl implements ProductDao {
 	}
 
 	@Override
-	public void insertProduct(Product product) {
+	public void insertProduct(Product product,List<String> list) {
 		// TODO Auto-generated method stub
 		System.out.println(product +"productDAOIMPL");
+		sqlSession.insert("ImageMapper.insertImages", list);
 		sqlSession.insert("ProductMapper.insertProduct",product);
 	}
 

@@ -9,7 +9,7 @@
  	
 	<resultMap id="CartSelectMap" type="cart">
 		<result property="cartNo" 			column="cart_no" 			jdbcType="NUMERIC"/>
-		<result property="prodNo"				column="prod_no" 		jdbcType="NUMERIC" />
+		<result property="cartProduct.prodNo"	column="prod_no" 		jdbcType="NUMERIC" />
 		<result property="userId" 				column="user_Id" 		jdbcType="VARCHAR" />
 		<result property="addDate" 			column="add_date" 			jdbcType="DATE" />
 	</resultMap>
@@ -18,7 +18,13 @@
 	<insert 	id="insertCart"		parameterType="cart" >
 	 	INSERT
 		INTO cart( cart_no, prod_no , user_id , add_date) 
-		VALUES	 (	seq_cart_cart_no.NEXTVAL , #{prodNo} , #{userId} ,SYSDATE )
+		VALUES	 (	seq_cart_cart_no.NEXTVAL , #{cartProduct.prodNo} , #{userId} ,SYSDATE )
 	 </insert>
+	 
+	 <select	id="getMyCartList"  parameterType="java.lang.String" resultMap="CartSelectMap">
+	 	SELECT cart_no,prod_no,user_id,add_date
+	 	FROM cart
+	 	WHERE user_id = #{value}
+	 </select>
 	 
 </mapper>

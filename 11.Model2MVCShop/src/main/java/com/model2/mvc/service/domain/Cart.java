@@ -5,9 +5,9 @@ import java.sql.Date;
 public class Cart {
 	
 	private int cartNo;
-	private int prodNo;
 	private String userId;
 	private Date addDate;
+	private Product cartProduct;
 	
 	public Cart() {
 		// TODO Auto-generated constructor stub
@@ -19,14 +19,6 @@ public class Cart {
 
 	public void setCartNo(int cartNo) {
 		this.cartNo = cartNo;
-	}
-
-	public int getProdNo() {
-		return prodNo;
-	}
-
-	public void setProdNo(int prodNo) {
-		this.prodNo = prodNo;
 	}
 
 	public String getUserId() {
@@ -45,11 +37,19 @@ public class Cart {
 		this.addDate = addDate;
 	}
 	
+	public Product getCartProduct() {
+		return cartProduct;
+	}
+
+	public void setCartProduct(Product cartProduct) {
+		this.cartProduct = cartProduct;
+	}
+
 	@Override
 	public String toString()
 	{
 		return "CartVO : [cartNo]" + cartNo
-		+ "[prodNo]" + prodNo+ "[userId]" + userId + "[addDate]" + addDate;
+		+  "[userId]" + userId + "[addDate]" + addDate+"[cartProduct]"+ cartProduct ;
 	}
 
 }

@@ -5,32 +5,6 @@
 <!DOCTYPE html>
 
 
-<%--
-<%@ page import="java.util.*"  %>
-<%@ page import="com.model2.mvc.service.domain.Purchase" %>
-<%@ page import="com.model2.mvc.service.domain.User" %>
-<%@ page import="com.model2.mvc.common.*" %>
-
-<%
-	User user =(User)session.getAttribute("user");
-
-	List<Purchase> list=(List<Purchase>)request.getAttribute("list");
-	Search search=(Search)request.getAttribute("search");
-	Page resultPage = (Page)request.getAttribute("resultPage");
-	/*
-	int total=0;
-	ArrayList<Purchase> list=null;
-	if(map != null){
-		total=((Integer)map.get("count")).intValue();
-		list=(ArrayList<Purchase>)map.get("list");
-	}
-	
-	int currentPage=search.getCurrentPage();
-	*/
-%>
-
---%>
-
 <html lang="ko">
 <head>
 <title>º£½ºÆ® top 10</title>

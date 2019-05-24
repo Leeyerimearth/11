@@ -15,7 +15,7 @@ public interface ProductDao {
 	
 	public List<Product> getProductList(Search search);
 	
-	public void insertProduct(Product product);
+	public void insertProduct(Product product, List<String> list);
 	
 	public void updateQuantity(Product product,int buyQuantity);
 	

@@ -5,29 +5,6 @@
 
 <!DOCTYPE html>
 
-<%-- 
-<%@ page import="java.util.List" %>
-<%@ page import="com.model2.mvc.common.Search" %>
-<%@ page import="com.model2.mvc.service.domain.Product"%>
-<%@ page import="com.model2.mvc.common.Page" %>
-<%@ page import="com.model2.mvc.common.util.CommonUtil" %>
-
-<%
-
-	String menu =request.getParameter("menu");
-	
-	List<Product> list=(List<Product>)request.getAttribute("list");
-	Page resultPage = (Page)request.getAttribute("resultPage");
-	
-	Search search=(Search)request.getAttribute("search");
-	
-	String searchCondition = CommonUtil.null2str(search.getSearchCondition());
-	String searchKeyword = CommonUtil.null2str(search.getSearchKeyword());
-	
-	// commonUtil을 안쓰니까, 밑에서 empty(!=null) 처리 해줘야함
-%>
-
---%>
 
 <html lang="ko">
 <head>
@@ -72,6 +49,9 @@
 			dialog.dialog("close");
 			//alert("제품상세보기2");
 			readProduct(); // 제품상세보기 page
+		},
+		'장바구니담기':function(){
+			addCart();
 		},
 		"구매" : function() {
 			dialog.dialog("close");
@@ -119,6 +99,40 @@
 
 		});
 
+	}
+
+	function addCart(){
+		
+		if(ranoutOrNot=='품절')//품절상품은 장바구니에 담을수 없음.
+		{
+			alert("품절상품입니다.");
+			return;
+		}
+		else{ alert($("#dialogImage").val())}
+		
+		//ajax로 cart정보 table에 추가 화면은 변하는것 없고, success하면 추가됐다는 alert창뜨기
+		
+		$.ajax({
+			
+			url:"/cart/json/addCart",
+			method : "POST",
+			headers : { // 보내는거 json
+				"Accept" : "application/json",
+				"Content-Type" : "application/json ; charset=UTF-8"
+			},
+			data : JSON.stringify({ 
+				prodNo : $("#dialogImage").val() //장바구니에 담을 prodNo만 보내준다
+			}),
+			success : function(status) {
+				
+				alert(status);
+				alert("장바구니에 추가되었습니다!");
+	
+			}
+			
+		});
+		
+		
 	}
 
 	function readProduct() {

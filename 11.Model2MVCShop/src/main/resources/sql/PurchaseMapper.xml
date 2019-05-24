@@ -24,7 +24,6 @@
 	</resultMap>
 	
 	<resultMap id="productSelectMap"  type="product">
-		<result property="fileName" 		column="image_file" 		jdbcType="VARCHAR"/>
 		<result property="manuDate"			column="manufacture_day" 		jdbcType="VARCHAR" />
 		<result property="price" 			column="price" 			jdbcType="NUMERIC" />
 		<result property="prodDetail" 		column="prod_detail" 		jdbcType="VARCHAR" />

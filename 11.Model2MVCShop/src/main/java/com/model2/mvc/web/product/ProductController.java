@@ -51,16 +51,19 @@ public class ProductController {
 
 	@RequestMapping(value="addProduct", method=RequestMethod.POST) // 항상 post로만 등록가능
 	public String addProduct(@ModelAttribute("product") Product product,
-					@RequestParam("multifile") MultipartFile multipartFile) throws Exception
+					@RequestParam("multifile") List<MultipartFile> multipartFile) throws Exception
 	{
 		System.out.println("/product/addProduct");
 		System.out.println("multipartFile :_"+multipartFile+"_");
-		System.out.println(multipartFile.getName()); //attribute name의 값
-		System.out.println(multipartFile.getOriginalFilename());//파일의 name
+		System.out.println(multipartFile.get(1).getOriginalFilename());
+		System.out.println(multipartFile.size());
 		
-		product.setFileName(multipartFile.getOriginalFilename());
+		//System.out.println(multipartFile.getName()); //attribute name의 값
+		//System.out.println(multipartFile.getOriginalFilename());//파일의 name
 		
-		productService.addProduct(product);
+		//product.setFileName(multipartFile.getOriginalFilename());
+		
+		productService.addProduct(product,multipartFile);
 		
 		return "forward:/product/addProductResultView.jsp";
 	}
