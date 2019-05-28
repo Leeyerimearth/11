@@ -5,24 +5,26 @@ import java.util.List;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Repository;
 
 import com.model2.mvc.service.cart.CartDao;
 import com.model2.mvc.service.domain.Cart;
 
-@Service("cartDaoImpl")
+@Repository("cartDaoImpl")
 public class CartDaoImpl implements CartDao{
+
 
 	@Autowired
 	@Qualifier("sqlSessionTemplate")
 	private SqlSession sqlSession;
 	
-	public void setSqlSession(SqlSession sqlSession) {
+	public void setSqlSession(SqlSession sqlSession)
+	{
 		this.sqlSession = sqlSession;
 	}
 
 	public CartDaoImpl() {
-		System.out.println(this.getClass().getName()+"생성자 입니다.");
+		System.out.println(this.getClass().getName()+"생성자 입니다!!!!!!!!!!!!!!");
 	}
 
 	@Override

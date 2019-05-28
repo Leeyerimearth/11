@@ -55,8 +55,11 @@ public class ProductDaoImpl implements ProductDao {
 	public void insertProduct(Product product,List<String> list) {
 		// TODO Auto-generated method stub
 		System.out.println(product +"productDAOIMPL");
-		sqlSession.insert("ImageMapper.insertImages", list);
+		HashMap map = new HashMap();
+		map.put("list", list);
+		map.put("prodNo", product.getProdNo());
 		sqlSession.insert("ProductMapper.insertProduct",product);
+		sqlSession.insert("ImageMapper.insertImages", map);
 	}
 
 	@Override

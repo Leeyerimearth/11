@@ -25,11 +25,11 @@ public class ProductServiceImpl implements ProductService {
 	
 	@Autowired
 	@Qualifier("productDaoImpl")
-	ProductDao productDao;
+	private ProductDao productDao;
 	
 	@Autowired
 	@Qualifier("purchaseServiceImpl")
-	PurchaseService purchaseService;
+	private PurchaseService purchaseService;
 	
 	public ProductServiceImpl() {
 		// TODO Auto-generated constructor stub
@@ -49,18 +49,25 @@ public class ProductServiceImpl implements ProductService {
 	public void addProduct(Product product,List<MultipartFile> multipartFile) throws Exception {
 		// TODO Auto-generated method stub
 		
+		System.out.println("multipartFile 첫번째  file name "+multipartFile.get(1).getOriginalFilename());
+		
 		List<String> list = new ArrayList<String>(); // image name만을 담을
 		
-		if(multipartFile != null) {
+		if(multipartFile.get(0).getOriginalFilename() != null) {
 			
 			//ProductImage productImage = new ProductImage(); 일단 안만들고 해보기
+			//System.out.println("null??");
+			//System.out.println(multipartFile.size());
+			//System.out.println(multipartFile.get(0).getOriginalFilename());
 			
-			for(int i=0 ; i< multipartFile.size(); i++ )
+			for(int i=0 ; i < multipartFile.size(); i++ )
 			{
-				list.set(i, multipartFile.get(i).getOriginalFilename());
+				list.add(i, multipartFile.get(i).getOriginalFilename());
 			}
 			
 		}
+		System.out.println(list);
+		
 		productDao.insertProduct(product,list);
 	}
 

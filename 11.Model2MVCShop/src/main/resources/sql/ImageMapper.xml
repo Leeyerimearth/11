@@ -10,108 +10,14 @@
 
 	
 	<!-- SQL : INSERT -->
-	<insert 	id="insertImages"	parameterType="" >
-	 	INSERT
-		INTO ( user_id , user_name , password , role , ssn, cell_phone, addr, email , reg_date) 
-		VALUES	 (	#{userId} , #{userName} , #{password} , 'user' , #{ssn:VARCHAR} , 
-							#{phone:VARCHAR} , #{addr:VARCHAR} , #{email:VARCHAR} , SYSDATE )
+	<insert 	id="insertImages"	parameterType="hashmap" >
+	 	<if test="list!=null">
+	 	<foreach collection="list" item="item" index="index" open="INSERT ALL" separator=" " close="SELECT * FROM DUAL">
+	 		INTO images(prod_no,image_file)
+	 		VALUES (#{prodNo},#{item})
+	 	</foreach>
+	 	</if>
 	 </insert>
 	 
-	 <!-- SQL : SELECT ONE -->
-	 <select 	id="getUser"	parameterType="string"	resultMap="userSelectMap">
-		SELECT
-		user_id , user_name , password , role ,  cell_phone ,  addr , email , reg_date , point, total_payment		
-		FROM users 
-		WHERE user_id = #{value}
-	 </select>
-	 
-	 <!-- SQL : UPDATE -->
-	 <update	id="updateUser"	parameterType="user" >
-	   	UPDATE users
-	   	<set>
-	   		user_name 	= #{userName} ,
-			cell_phone	= #{phone:VARCHAR},
-			addr 				= #{addr:VARCHAR} ,
-			email				=	#{email:VARCHAR},
-			point =#{userPoint:NUMERIC},
-			total_payment = #{totalPayment:NUMERIC}
-	   	</set>
-	   	WHERE user_id = #{userId}
-	 </update>
-		 
-	<!-- SQL : SELECT LIST -->
-	<select  id="getUserList"  parameterType="search"	resultMap="userSelectMap">
-	  	SELECT *
-	  	FROM (	SELECT inner_table.* , ROWNUM AS row_seq
-	  					FROM		(	SELECT user_id , user_name , email
-											FROM users
-											<if test="searchCondition != null">
-												<where>
-													<if test="searchCondition == 0 and searchKeyword !='' ">
-										 				user_id  LIKE '%'||#{searchKeyword}||'%' 
-													</if>
-													<if test="searchCondition == 1 and searchKeyword !='' ">
-										 				user_name LIKE '%'||#{searchKeyword}||'%' 
-													</if>
-												</where>
-											</if>
-											ORDER BY user_id ) inner_table
-						WHERE ROWNUM &lt;= #{endRowNum} )
-		WHERE row_seq BETWEEN #{startRowNum} AND #{endRowNum} 
-	 </select>
-	 
-	 <!--  추가  -->
-	 
-	 <select id="getAllUserList" parameterType="search" resultType = "java.lang.String">
-	 	SELECT 
-	 	<if test="searchCondition==0">
-	 		user_id
-	 	</if>
-	 	<if test="searchCondition==1">
-	 		user_name
-	 	</if>
-	 	
-	 	FROM users
-	 	<if test="searchCondition != null">
-			<where>
-				<if test="searchCondition == 0 and searchKeyword !='' ">
-						user_id  LIKE  #{searchKeyword}||'%'
-						ORDER BY user_id 
-				</if>
-				<if test="searchCondition == 1 and searchKeyword !='' ">
-						user_name LIKE #{searchKeyword}||'%'
-						ORDER BY user_name 
-				</if>
-			</where>
-		</if>
-	 
-	 </select>
-	 	<!--  위 두번째 subQuery 의  
-	 			WHERE ROWNUM &lt;= #{endRowNum} ) 는
-	 			WHERE ROWNUM <= #{endRowNum} ) 의미이며..
-	 			< 는 keyword 로 &lt; 를	사용.
-	 			
-	 			<![CDATA[  ~~~  ]]> 를 이용하여 아래와 같이 사용  할 수 있다.
-	 			CDATA ==> Character Data 의 의미 Java 에서 \n 같은 특수문자 처리  
-
-				WHERE ROWNUM <![CDATA[ <=]]> #{endRowNum} )
-		-->
-	
-	<!-- SQL : SELECT ROW Count -->	 
-	 <select  id="getTotalCount"  parameterType="search"	 resultType="int">
-	  	SELECT COUNT(*)
-	  	FROM(	SELECT user_id , user_name , email
-						FROM users
-						<if test="searchCondition != null">
-							<where>
-								<if test="searchCondition == 0 and searchKeyword !='' ">
-						 			user_id LIKE '%'||#{searchKeyword}||'%' 
-								</if>
-								<if test="searchCondition == 1 and searchKeyword !='' ">
-						 		user_name LIKE '%'||#{searchKeyword}||'%' 
-								</if>
-							</where>
-						</if> ) countTable						
-	 </select>
 	 
 </mapper>
