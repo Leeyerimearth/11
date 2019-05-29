@@ -254,7 +254,6 @@
 		    <label for="userId" class="col-sm-offset-1 col-sm-3 control-label">아 이 디</label>
 		    <div class="col-sm-4">
 		      <input type="text" class="form-control" id="userId" name="userId" placeholder="아이디를 입력하세요" >
-		    
 		    </div>
 		    
 		  </div>

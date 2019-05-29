@@ -90,7 +90,7 @@
 			   #{divyRequest:VARCHAR},
 			   '004',
 			   SYSDATE,
-			   #{divyDate:VARCHAR},
+			   TO_DATE(#{divyDate:DATE},'mm-dd-yyyy'),
 			   #{buyQuantity:NUMERIC},
 			   #{payAmount:NUMERIC},
 			   'N')
@@ -115,7 +115,7 @@
 	    receiver_phone = #{receiverPhone:VARCHAR},
 	    demailaddr= #{divyAddr:VARCHAR},
 	    dlvy_request = #{divyRequest:VARCHAR},
-	    dlvy_date = TO_DATE(#{divyDate},'yyyy-mm-dd'),
+	    dlvy_date = TO_DATE(#{divyDate},'mm-dd-yyyy'),
 	    pay_amount = #{payAmount:NUMERIC}
 	</set>
 		WHERE tran_no = #{tranNo}

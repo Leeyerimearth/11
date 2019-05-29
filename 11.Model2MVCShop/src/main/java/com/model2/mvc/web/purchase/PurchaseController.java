@@ -95,16 +95,18 @@ public class PurchaseController {
 	}
 	
 	@RequestMapping(value="addPurchase", method=RequestMethod.GET)
-	public String addPurchase(@RequestParam("prodNo") String prodNo , HttpSession session) throws Exception
+	public String addPurchase(@RequestParam(value="prodNo",required=false) String prodNo , HttpSession session) throws Exception
 	{
 		System.out.println("/purchase/addPurchase GET방식");
 		
-		if(Integer.parseInt(prodNo)!=0) //원래는 prodNo 필요없는 그냥 navigation, getProduct 건너뛰고 넘어가면 getProduct 해야한다.
-		{	
-			Product product = productService.getProduct(Integer.parseInt(prodNo));
-			session.setAttribute("vo", product);
+		if(prodNo!=null) 
+		{
+			if(Integer.parseInt(prodNo)!=0) //원래는 prodNo 필요없는 그냥 navigation, getProduct 건너뛰고 넘어가면 getProduct 해야한다.
+			{	
+				Product product = productService.getProduct(Integer.parseInt(prodNo));
+				session.setAttribute("vo", product);
+			}
 		}
-		
 		return "forward:/purchase/addPurchase.jsp";
 	}
 	

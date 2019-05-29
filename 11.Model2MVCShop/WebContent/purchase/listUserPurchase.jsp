@@ -4,31 +4,7 @@
 
 
 <!DOCTYPE html>
-<%--
-<%@ page import="java.util.*"  %>
-<%@ page import="com.model2.mvc.service.domain.Purchase" %>
-<%@ page import="com.model2.mvc.service.domain.User" %>
-<%@ page import="com.model2.mvc.common.*" %>
 
-<%
-	User user =(User)session.getAttribute("user");
-
-	List<Purchase> list=(List<Purchase>)request.getAttribute("list");
-	Search search=(Search)request.getAttribute("search");
-	Page resultPage = (Page)request.getAttribute("resultPage");
-	/*
-	int total=0;
-	ArrayList<Purchase> list=null;
-	if(map != null){
-		total=((Integer)map.get("count")).intValue();
-		list=(ArrayList<Purchase>)map.get("list");
-	}
-	
-	int currentPage=search.getCurrentPage();
-	*/
-%>
-
---%>
 
 <html lang="ko">
 <head>
@@ -190,7 +166,7 @@
 		       <label for="txtArea"><h3>어떤 점이 좋았나요?</h3></label>
 		       <textarea id="txtArea" rows="20" cols="45" class="text ui-widget-content ui-corner-all" ></textarea>
 				<!--  <input type="hidden" id="dialogTranNo" name="dialogTranNo" value=""/>
-				<input type="hidden" id="dialogProdNo" name="dialogProdNo" value=""/>-->
+				<input type="hidden" id="dialogProdNo" name="dialogProdNo" value=""/>-->	
 			</fieldset>
 		</form>
 	</div>
@@ -274,11 +250,12 @@
           </c:forEach>
         
         </tbody>
-      
+      	
       </table>	
    			
    	</div>
    	
+
    	<!-- PageNavigation Start... -->
 	<jsp:include page="../common/purchasePageNavigator_new.jsp"/>
 	<!-- PageNavigation End... -->

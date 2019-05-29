@@ -45,7 +45,9 @@
 			
 			$("button.btn.btn-primary").on("click",function(){
 				alert( ${sessionScope.vo.prodNo} );
-				self.location = "/purchase/addPurchase?prod_no=${sessionScope.vo.prodNo}";
+				//self.location = "/purchase/addPurchase?prod_no=${sessionScope.vo.prodNo}";±ª¿Ã prodNoæ»∫∏≥ª¡‡µµ
+				self.location = "/purchase/addPurchase";
+
 			});
 			
 			$("a[href='#' ]").on("click", function(){
