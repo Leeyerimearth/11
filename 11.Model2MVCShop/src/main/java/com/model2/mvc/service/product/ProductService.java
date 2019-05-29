@@ -10,7 +10,7 @@ import com.model2.mvc.service.domain.Product;
 
 public interface ProductService {
 	
-	public void addProduct(Product product,List<MultipartFile> multipartFile) throws Exception;
+	public void addProduct(Product product) throws Exception;
 
 	public Product getProduct(int prodNo) throws Exception;
 
@@ -23,5 +23,6 @@ public interface ProductService {
 	public List<Product> getBestSellerList();
 	
 	public List getAllProductList(Search search);
+	
 	
 }

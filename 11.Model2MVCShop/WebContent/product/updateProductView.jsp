@@ -137,7 +137,7 @@ function fncAddProduct(){
 		 	<div class="form-group">
 		    	<label for="multifile" class="col-sm-offset-1 col-sm-3 control-label">상품이미지</label>
 		     <div class="col-sm-4">
-		      <input type="file" id="multifile" name="multifile" value="${sessionScope.vo.fileName}"/>
+		      <input type="file" id="multifile" name="multifile" value="${sessionScope.vo.fileName1}"/>
 		     </div>
 		 	</div>
 		 	

@@ -100,7 +100,12 @@
 			 	 <fmt:formatNumber value="${product.price}" groupingUsed="true"/>
 			  </td>
 			  <td align="left" width="150">
-			  	<img src = "/images/uploadFiles/${product.fileName}" width="150" height="150"/>
+			  	<c:if test="${product.fileName1 == null}">
+			  		<img src = "/images/empty.GIF" width="150" height="150"/>
+			  	</c:if>
+			  	<c:if test="${product.fileName1 !=null}">
+			  		<img src = "/images/uploadFiles/${product.fileName1}" width="150" height="150"/>
+			  	</c:if>
 			  </td>  
 			  <td align="left">${product.prodDetail}</td>
 	  

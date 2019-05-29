@@ -4,6 +4,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.springframework.web.multipart.MultipartFile;
+
 import com.model2.mvc.common.Search;
 import com.model2.mvc.service.domain.Product;
 
@@ -15,7 +17,7 @@ public interface ProductDao {
 	
 	public List<Product> getProductList(Search search);
 	
-	public void insertProduct(Product product, List<String> list);
+	public void insertProduct(Product product);
 	
 	public void updateQuantity(Product product,int buyQuantity);
 	

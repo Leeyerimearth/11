@@ -1,4 +1,5 @@
 <%@ page contentType="text/html; charset=euc-kr" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <!DOCTYPE html>
 
@@ -98,7 +99,15 @@ body>div.container {
 	  		<div class="col-xs-4 col-md-2 "><strong>제품 이미지</strong></div>
 			<div class="col-xs-8 col-md-4">
 			
-			<img src="/images/uploadFiles/${product.fileName}"/>
+			<c:if test="${product.fileName1 !=null}">
+				<img src="/images/uploadFiles/${product.fileName1}"/>
+			</c:if>
+			<c:if test="${product.fileName2 !=null}">
+				<img src="/images/uploadFiles/${product.fileName2}"/>
+			</c:if>
+			<c:if test="${product.fileName3 !=null}">
+				<img src="/images/uploadFiles/${product.fileName3}"/>
+			</c:if>
 			
 			</div>
 		</div>

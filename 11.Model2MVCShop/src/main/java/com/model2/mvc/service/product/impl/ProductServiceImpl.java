@@ -12,7 +12,6 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.model2.mvc.common.Search;
 import com.model2.mvc.service.domain.Product;
-import com.model2.mvc.service.domain.ProductImage;
 import com.model2.mvc.service.product.ProductDao;
 import com.model2.mvc.service.product.ProductService;
 import com.model2.mvc.service.purchase.PurchaseDao;
@@ -45,31 +44,15 @@ public class ProductServiceImpl implements ProductService {
 		this.purchaseService = purchaseService;
 	}
 
+	
 	@Override
-	public void addProduct(Product product,List<MultipartFile> multipartFile) throws Exception {
+	public void addProduct(Product product) throws Exception {
 		// TODO Auto-generated method stub
 		
-		System.out.println("multipartFile 첫번째  file name "+multipartFile.get(1).getOriginalFilename());
-		
-		List<String> list = new ArrayList<String>(); // image name만을 담을
-		
-		if(multipartFile.get(0).getOriginalFilename() != null) {
-			
-			//ProductImage productImage = new ProductImage(); 일단 안만들고 해보기
-			//System.out.println("null??");
-			//System.out.println(multipartFile.size());
-			//System.out.println(multipartFile.get(0).getOriginalFilename());
-			
-			for(int i=0 ; i < multipartFile.size(); i++ )
-			{
-				list.add(i, multipartFile.get(i).getOriginalFilename());
-			}
-			
-		}
-		System.out.println(list);
-		
-		productDao.insertProduct(product,list);
+		productDao.insertProduct(product);
 	}
+	
+	
 
 	@Override
 	public Product getProduct(int prodNo) throws Exception {
@@ -118,5 +101,7 @@ public class ProductServiceImpl implements ProductService {
 		// TODO Auto-generated method stub
 		return productDao.getAllProductList(search);
 	}
+
+
 
 }

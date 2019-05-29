@@ -89,7 +89,7 @@ public class ProductRestController {
 		
 		product.setProdNo(sessionProduct.getProdNo());		
 		product.setRegDate(sessionProduct.getRegDate());
-		product.setFileName(multipartFile.getOriginalFilename());
+		//product.setFileName(multipartFile.getOriginalFilename());
 		
 		productService.updateProduct(product);
 		

@@ -7,7 +7,10 @@ import org.springframework.web.multipart.MultipartFile;
 
 public class Product {
 	
-	private String fileName;
+	//private String [] fileName = new String[3];
+	private String fileName1;
+	private String fileName2;
+	private String fileName3;
 	private String manuDate;
 	private int price;
 	private String prodDetail;
@@ -18,7 +21,58 @@ public class Product {
 	private int quantity;
 	private int saleQuantity;
 	
-//////////////////////////////////////////////////////////제품 총 판매 개수 추가	
+	public Product(){
+	}
+	/*
+	public Product(String fileName1, String fileName2, String fileName3){ //이렇게 하는게 맞을까?ㅠㅠ
+		
+		this.fileName[0] = fileName1;
+		this.fileName[1] = fileName2;
+		this.fileName[2] = fileName3;
+	}
+	
+	
+	public String[] getFileName() {
+		return fileName;
+	}
+
+	public void setFileName(String[] fileName) {
+		this.fileName = fileName;
+	}
+	*/
+	
+
+	public String getFileName1() {
+		return fileName1;
+	}
+
+
+	public void setFileName1(String fileName1) {
+		this.fileName1 = fileName1;
+	}
+
+
+	public String getFileName2() {
+		return fileName2;
+	}
+
+
+	public void setFileName2(String fileName2) {
+		this.fileName2 = fileName2;
+	}
+
+
+	public String getFileName3() {
+		return fileName3;
+	}
+
+
+	public void setFileName3(String fileName3) {
+		this.fileName3 = fileName3;
+	}
+
+
+	//////////////////////////////////////////////////////////제품 총 판매 개수 추가	
 	public int getSaleQuantity() {
 		return saleQuantity;
 	}
@@ -27,8 +81,7 @@ public class Product {
 		this.saleQuantity = saleQuantity;
 	}
 ///////////////////////////////////////////////////////////////////
-	public Product(){
-	}
+
 	
 	public int getQuantity()
 	{
@@ -48,13 +101,7 @@ public class Product {
 	////////////////////////////////////////////////////////////	
 
 	
-	public String getFileName() {
-		return fileName;
-	}
-
-	public void setFileName(String fileName) {
-		this.fileName = fileName;
-	}
+	
 ///////////////////////////////////////////////////////////////////////////////////
 	public String getManuDate() {
 		
@@ -106,7 +153,7 @@ public class Product {
 
 	// Override
 	public String toString() {
-		return "ProductVO : [fileName]" + fileName
+		return "ProductVO :"
 				+ "[manuDate]" + manuDate+ "[price]" + price + "[prodDetail]" + prodDetail
 				+ "[prodName]" + prodName + "[prodNo]" + prodNo + "[quantity]"+ quantity;
 	}	

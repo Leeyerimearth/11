@@ -85,6 +85,15 @@ body>div.container {
 		$("#manuDate").datepicker();
 		
 		$( "button.btn.btn-primary" ).on("click" , function() { // 등록
+			
+			//alert($("input[type=file]").val()); 파일 경로 값 다 가져온다
+			var fileString = $("input[type=file]").val();
+			var count = (fileString.match(/,/g) || []).length; // ,가 몇번 들어갔는지 
+			if(count>2)
+			{
+				alert("파일은 최대 3개까지 등록 가능합니다.");
+				return;
+			}
 			fncAddProduct();
 		});
 		
@@ -154,7 +163,10 @@ body>div.container {
 		 	<div class="form-group">
 		    	<label for="multifile" class="col-sm-offset-1 col-sm-3 control-label">상품이미지</label>
 		     <div class="col-sm-4">
-		      <input type="file" id="multifile" name="multifile" multiple>
+		      <input type="file" id="multifile" name="multifile" value="" multiple>
+		      <span id="helpBlock" class="help-block">
+		      	 <strong class="text-danger"> *(파일은 최대 3개까지 등록가능합니다.)</strong>
+		      	</span>
 		     </div>
 		 	</div>
 		 	

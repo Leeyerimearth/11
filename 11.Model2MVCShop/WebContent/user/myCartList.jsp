@@ -113,7 +113,7 @@
 			  	<input type="checkbox" id="${cart.cartProduct.prodNo}" value="${cart.cartProduct.prodNo}"/>
 			  </td>
 			  <td align="left" width="150">
-			  	<img src = "/images/uploadFiles/${cart.cartProduct.fileName}" width="100" height="100"/>
+			  	<img src = "/images/uploadFiles/${cart.cartProduct.fileName1}" width="100" height="100"/>
 			  </td>  
 			  <td align="left">
 			  	<h5><ins>${cart.cartProduct.prodName}</ins></h5>

@@ -15,18 +15,21 @@
 		<result property="regDate"			column="reg_date" 			jdbcType="DATE" />
 		<result property="quantity" 		column="quantity" 			jdbcType="NUMERIC"  />
 		<result property="saleQuantity"  	column="sale_quantity"      jdbcType="NUMERIC"/>
+		<result property="fileName1"  		column="filename1"      jdbcType="VARCHAR"/>
+		<result property="fileName2"  		column="filename2"      jdbcType="VARCHAR"/>
+		<result property="fileName3"  		column="filename3"      jdbcType="VARCHAR"/>		
 	</resultMap>
 
 	<select id="findProduct" parameterType="int" resultMap="productSelectMap">
 		SELECT
-		prod_no,prod_name,prod_detail,manufacture_day,price,reg_date,quantity
+		prod_no,prod_name,prod_detail,manufacture_day,price,reg_date,quantity,filename1,filename2,filename3
 		FROM product
 		WHERE prod_no = #{value}
 	</select>
 	
 	<insert id="insertProduct" parameterType="product">
 		INSERT INTO
-		product(prod_no,prod_name,prod_detail,manufacture_day,price,reg_date,quantity)
+		product(prod_no,prod_name,prod_detail,manufacture_day,price,reg_date,quantity,fileName1,fileName2,fileName3)
 		VALUES( seq_product_prod_no.NEXTVAL,
 				#{prodName:VARCHAR},
 				#{prodDetail:VARCHAR},
@@ -34,7 +37,10 @@
 				#{price:NUMERIC},
 				SYSDATE,
 				<if test="quantity==null">0</if>
-				<if test="quantity!=null">#{quantity}</if>
+				<if test="quantity!=null">#{quantity}</if>,
+				#{fileName1:VARCHAR},
+				#{fileName2:VARCHAR},
+				#{fileName3:VARCHAR}
 				)
 	</insert>
 	

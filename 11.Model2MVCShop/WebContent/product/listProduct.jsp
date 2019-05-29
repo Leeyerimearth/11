@@ -148,6 +148,7 @@
 			alert("품절상품입니다.");
 			return;
 		}
+		alert($("#dialogImage").val());
 		self.location = "/purchase/addPurchase?prodNo="
 				+ $("#dialogImage").val(); //prod_no
 	}
@@ -205,7 +206,7 @@
 											var JSONData = $
 													.parseJSON(serverData); // json 객체로 변경			
 											// 밑에 다이얼로그 소스를 받아온 이미지Set
-											var displayValue = "<img src = \"/images/uploadFiles/"+JSONData.fileName+"\" width =\"300\" height=\"300\"/>";
+											var displayValue = "<img src = \"/images/uploadFiles/"+JSONData.fileName1+"\" width =\"300\" height=\"300\"/>";
 
 											//alert(JSONData.fileName);
 											//alert(displayValue);

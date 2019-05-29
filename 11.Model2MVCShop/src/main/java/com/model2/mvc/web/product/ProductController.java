@@ -54,16 +54,37 @@ public class ProductController {
 					@RequestParam("multifile") List<MultipartFile> multipartFile) throws Exception
 	{
 		System.out.println("/product/addProduct");
-		System.out.println("multipartFile :_"+multipartFile+"_");
-		System.out.println(multipartFile.get(1).getOriginalFilename());
-		System.out.println(multipartFile.size());
+		//System.out.println("multipartFile :_"+multipartFile+"_");
+		//System.out.println(multipartFile.get(1).getOriginalFilename());
+		//System.out.println(multipartFile.size());
+		//String [] fileName = new String[3];
 		
+		for(int i=0;i <multipartFile.size(); i++)
+		{
+			if(i==0) //이게 최선의 방법일까
+			{
+				System.out.println("0");
+				product.setFileName1(multipartFile.get(0).getOriginalFilename());
+			}
+			if(i==1) //
+			{
+				System.out.println("1");
+				product.setFileName2(multipartFile.get(1).getOriginalFilename());
+			}
+			if(i==2) //
+			{
+				System.out.println("2");
+				product.setFileName3(multipartFile.get(2).getOriginalFilename());
+			}
+		}
 		//System.out.println(multipartFile.getName()); //attribute name의 값
 		//System.out.println(multipartFile.getOriginalFilename());//파일의 name
 		
 		//product.setFileName(multipartFile.getOriginalFilename());
 		
-		productService.addProduct(product,multipartFile);
+		productService.addProduct(product); // 그럼 product만 보내줘도 된다.
+		
+		//productService.addImages(product.getProdNo(),multipartFile); //도 사실은  service단에 있으면 안되는데,트랜젝션처리가 service단위
 		
 		return "forward:/product/addProductResultView.jsp";
 	}
@@ -115,7 +136,7 @@ public class ProductController {
 		
 		product.setProdNo(sessionProduct.getProdNo());
 		product.setRegDate(sessionProduct.getRegDate());
-		product.setFileName(multipartFile.getOriginalFilename());
+		//product.setFileName(multipartFile.getOriginalFilename());
 		
 		productService.updateProduct(product);
 		

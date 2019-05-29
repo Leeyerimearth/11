@@ -52,15 +52,18 @@ public class ProductDaoImpl implements ProductDao {
 	}
 
 	@Override
-	public void insertProduct(Product product,List<String> list) {
+	public void insertProduct(Product product) {
 		// TODO Auto-generated method stub
 		System.out.println(product +"productDAOIMPL");
-		HashMap map = new HashMap();
-		map.put("list", list);
-		map.put("prodNo", product.getProdNo());
+		
+		//HashMap map = new HashMap();
+		//map.put("list", list);
+		//map.put("prodNo", product.getProdNo());
+		
 		sqlSession.insert("ProductMapper.insertProduct",product);
-		sqlSession.insert("ImageMapper.insertImages", map);
+
 	}
+	
 
 	@Override
 	public void updateQuantity(Product product,int buyQuantity) { // HashMap map) {
@@ -112,5 +115,6 @@ public class ProductDaoImpl implements ProductDao {
 		// TODO Auto-generated method stub
 		return sqlSession.selectList("ProductMapper.getAllProductList", search);
 	}
+
 
 }
