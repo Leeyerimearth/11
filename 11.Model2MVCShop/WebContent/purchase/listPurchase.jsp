@@ -180,6 +180,9 @@
    	<!-- PageNavigation Start... -->
 	<jsp:include page="../common/purchasePageNavigator_new.jsp"/>
 	<!-- PageNavigation End... -->
+   	<form>
+   		<input type="hidden" id="currentPage" name="currentPage" value=""/>
+   	</form>
    	
 </body>
 </html>

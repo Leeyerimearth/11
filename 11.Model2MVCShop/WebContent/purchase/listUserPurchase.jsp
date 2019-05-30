@@ -31,13 +31,17 @@
 	  body {
             padding-top : 50px;
         }
+        
+       #dialog-form { display: none; }
     </style>
 <script type="text/javascript">
 	
 	function fncGetPurchaseList(currentPage) {
 		
 		$("#currentPage").val(currentPage);
-		$('form').attr("method","POST").attr("action","/purchase/listPurchase").submit();
+		//$('form').attr("method","POST").attr("action","/purchase/listPurchase").submit();
+		
+		self.location = "/purchase/listPurchase?currentPage="+$("#currentPage").val();
 		//document.getElementById("currentPage").value = currentPage;
 		//document.detailForm.submit();
 	
@@ -109,7 +113,7 @@
 			prodNo = $(this).parent().find("input[id=prodNo]").val();
 			selectedPurchase = $(this);
 			alert("selectedPurchase : "+selectedPurchase);
-			dialog.dialog("open")
+			dialog.dialog("open");
 			
 		});
 		
@@ -161,7 +165,7 @@
 	<div id="dialog-form" title="리뷰 쓰기">
 		<p class="validateTips"></p>
 		
-		<form>
+		<form id="form">
 			<fieldset>
 		       <label for="txtArea"><h3>어떤 점이 좋았나요?</h3></label>
 		       <textarea id="txtArea" rows="20" cols="45" class="text ui-widget-content ui-corner-all" ></textarea>
@@ -248,14 +252,18 @@
 			 
 			</tr>
           </c:forEach>
-        
+        	<tr>
+        		<td>
+        			<input type="hidden" id="currentPage" name="currentPage" value=""/>
+        		</td>
+        	</tr>
         </tbody>
       	
       </table>	
-   			
+   		
    	</div>
    	
-
+   	
    	<!-- PageNavigation Start... -->
 	<jsp:include page="../common/purchasePageNavigator_new.jsp"/>
 	<!-- PageNavigation End... -->

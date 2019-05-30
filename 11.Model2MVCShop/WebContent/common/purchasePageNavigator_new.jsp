@@ -11,10 +11,11 @@
 		  <ul class="pagination" >
 		    
 		    <!--  <<== ÁÂÃø nav -->
-		  	<c:if test="${ resultPage.currentPage <= resultPage.pageUnit }">
+		  	<c:if test="${ resultPage.currentPage <= 1 }">
 		 		<li class="disabled">
 			</c:if>
-			<c:if test="${ resultPage.currentPage > resultPage.pageUnit }">
+			
+			<c:if test="${ resultPage.currentPage > 1 }">
 				<li>
 			</c:if>
 		      <a href="javascript:fncGetPurchaseList('${ resultPage.currentPage-1}')" aria-label="Previous">
@@ -40,39 +41,20 @@
 			</c:forEach>
 		    
 		     <!--  ¿ìÃø nav==>> -->
-		     <c:if test="${ resultPage.endUnitPage >= resultPage.maxPage }">
+		     <c:if test="${ resultPage.currentPage == resultPage.maxPage }">
 		  		<li class="disabled">
+		  		<a href="javascript:fncGetPurchaseList('${resultPage.currentPage}')" aria-label="Next">
 			</c:if>
-			<c:if test="${ resultPage.endUnitPage < resultPage.maxPage }">
+			<c:if test="${ resultPage.currentPage < resultPage.maxPage }">
 				<li>
+				<a href="javascript:fncGetPurchaseList('${resultPage.currentPage+1}')" aria-label="Next">
 			</c:if>
-		      <a href="javascript:fncGetPurchaseList('${resultPage.endUnitPage+1}')" aria-label="Next">
 		        <span aria-hidden="true">&raquo;</span>
 		      </a>
 		    </li>
+		 
+		 
 		  </ul>
 		</nav>
 		
-</div>
- 
-
-
-<div class="container">
-		<nav>
-		  <ul class="pager">
-		    <li><a href="#">Previous</a></li>
-		    <li><a href="#">Next</a></li>
-		  </ul>
-		</nav>
-</div>
-
-
-<div class="container">
-		<nav>
-		  <ul class="pager">
-		    <li class="previous disabled"><a href="#"><span aria-hidden="true">&larr;</span> Older</a></li>
-		    <!-- <li class="previous"><a href="#"><span aria-hidden="true">&larr;</span> Older</a></li>  -->
-		    <li class="next"><a href="#">Newer <span aria-hidden="true">&rarr;</span></a></li>
-		  </ul>
-		</nav>
 </div>

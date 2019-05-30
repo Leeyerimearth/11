@@ -149,8 +149,7 @@
 			return;
 		}
 		alert($("#dialogImage").val());
-		self.location = "/purchase/addPurchase?prodNo="
-				+ $("#dialogImage").val(); //prod_no
+		self.location = "/purchase/addPurchase?prodNo="+ $("#dialogImage").val(); //prod_no
 	}
 
 	$(function() {

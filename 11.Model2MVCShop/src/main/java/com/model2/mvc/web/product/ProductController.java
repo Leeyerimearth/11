@@ -1,5 +1,6 @@
 package com.model2.mvc.web.product;
 
+import java.io.File;
 import java.util.List;
 import java.util.Map;
 
@@ -45,6 +46,9 @@ public class ProductController {
 	@Value("#{commonProperties['pageSize']}")
 	int pageSize;
 	
+	@Value("#{commonProperties['fileDirectory']}")
+	String fileDirectory;
+	
 	public ProductController() {
 		System.out.println(this.getClass().getName()+"컨트롤러 생성자");
 	}
@@ -59,22 +63,33 @@ public class ProductController {
 		//System.out.println(multipartFile.size());
 		//String [] fileName = new String[3];
 		
+		String fileName= null;
+		
 		for(int i=0;i <multipartFile.size(); i++)
 		{
 			if(i==0) //이게 최선의 방법일까
 			{
+				
 				System.out.println("0");
-				product.setFileName1(multipartFile.get(0).getOriginalFilename());
+				fileName = multipartFile.get(0).getOriginalFilename();
+				multipartFile.get(0).transferTo(new File(fileDirectory+fileName));
+				product.setFileName1(fileName);
+				
 			}
 			if(i==1) //
 			{
 				System.out.println("1");
-				product.setFileName2(multipartFile.get(1).getOriginalFilename());
+				fileName = multipartFile.get(1).getOriginalFilename();
+				product.setFileName2(fileName);
+				multipartFile.get(1).transferTo(new File(fileDirectory+fileName));
+
 			}
 			if(i==2) //
 			{
 				System.out.println("2");
-				product.setFileName3(multipartFile.get(2).getOriginalFilename());
+				fileName = multipartFile.get(2).getOriginalFilename();
+				product.setFileName3(fileName);
+				multipartFile.get(2).transferTo(new File(fileDirectory+fileName));
 			}
 		}
 		//System.out.println(multipartFile.getName()); //attribute name의 값

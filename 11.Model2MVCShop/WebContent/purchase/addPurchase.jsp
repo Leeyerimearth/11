@@ -181,7 +181,7 @@ function fncAddPurchase() {
 		    <div class="form-group">
 		    	<label for="buyQuantity" class="col-sm-offset-1 col-sm-3 control-label">구매 개수</label>
 		    	<div class="col-sm-4">
-		      		<input type="text" class="form-control" id="buyQuantity" name="buyQuantity" value="0">
+		      		<input type="text" class="form-control" id="buyQuantity" name="buyQuantity" value="${quantity}">
 		   		</div>
 		    </div>
 		    

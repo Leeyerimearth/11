@@ -95,7 +95,8 @@ public class PurchaseController {
 	}
 	
 	@RequestMapping(value="addPurchase", method=RequestMethod.GET)
-	public String addPurchase(@RequestParam(value="prodNo",required=false) String prodNo , HttpSession session) throws Exception
+	public String addPurchase(@RequestParam(value="prodNo",required=false) String prodNo,HttpSession session,
+							Model model,@RequestParam(value="quantity",required=false) int quantity ) throws Exception
 	{
 		System.out.println("/purchase/addPurchase GET¹æ½Ä");
 		
@@ -107,6 +108,9 @@ public class PurchaseController {
 				session.setAttribute("vo", product);
 			}
 		}
+		
+		model.addAttribute("quantity", quantity);
+		
 		return "forward:/purchase/addPurchase.jsp";
 	}
 	

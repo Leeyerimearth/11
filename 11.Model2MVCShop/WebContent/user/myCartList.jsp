@@ -39,6 +39,8 @@
 		
 	$( function() {
 	    
+		var value;
+		
 		$( ".spinner.abc" ).spinner({
 	      	min :1,
 			spin: function( event, ui ) {
@@ -46,7 +48,8 @@
 	    	  
 	    	 // alert($(this).spinner("value"));
 	    	 var eachPrice = $(this).attr('id');
-	    	 var value = $(this).spinner("value")+1;
+	    	 value = $(this).spinner("value")+1;
+	    	 
 	    	 var sumPrice = eachPrice * value; // 얘를 set해주면된다.
 			
 	    	 if(value==1){
@@ -66,6 +69,14 @@
 	      }
 	    });
 	    
+		
+		$(".btn.btn-warning").on("click",function(){
+			var prodNo = $(this).parent().parent().parent().find("input[type=checkbox]").val() //선택한애 prodNo
+			alert(value);
+			
+			//self.location = "/purchase/addPurchase?prodNo="+prodNo+"&quantity="+value
+			
+		});
 	    
 	    
 	    
@@ -122,7 +133,7 @@
 			  </td>
 			  <td align="left">
 			  	<br/>
-  				<input class="spinner abc" name="value" id ="${cart.cartProduct.price}" ><br/><br/>
+  				<input class="spinner abc" name="value" id ="${cart.cartProduct.price}" value=""><br/><br/>
   			
   				<div class="col-sm-offset-1 col-sm-11">
   					<button type="button" class="btn btn-warning">BUY NOW</button>
