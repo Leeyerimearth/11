@@ -165,6 +165,7 @@ public class ProductController {
 									@RequestParam("menu") String menu) throws Exception
 	{
 		System.out.println("/product/listProduct");
+		System.out.println(search);
 		System.out.println(search.getOrderCondition());
 		if(search.getOrderCondition()== null)
 		{
@@ -182,8 +183,8 @@ public class ProductController {
 		
 		model.addAttribute("list", map.get("list"));
 		model.addAttribute("resultPage", resultPage);
-		model.addAttribute("search", search);
-		System.out.println(search);
+		//model.addAttribute("search", search);
+		//System.out.println(search);
 		session.setAttribute("menu", menu);
 		
 		return "forward:/product/listProduct.jsp";

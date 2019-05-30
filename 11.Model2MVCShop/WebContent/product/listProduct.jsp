@@ -63,7 +63,7 @@
 	function fncGetProductList(currentPage) {
 
 		$("#currentPage").val(currentPage)
-		$("form").attr("method", "POST").attr("action","/product/listProduct?menu=search").submit();
+		$(".form-inline").attr("method", "POST").attr("action","/product/listProduct?menu=search").submit();
 
 		// jQuery로 수정!
 		//document.getElementById("currentPage").value = currentPage;
@@ -174,16 +174,14 @@
 
 		});
 
-		form = dialog.find("form").on("submit", function(event) {
+		form = dialog.find("#dialog-form").on("submit", function(event) {
 			event.preventDefault();
 
 			//addUser();
 		});
 
 		// No 클릭하면? No 클릭 event  prodNo보내기 체크
-		$("td:nth-child(2)")
-				.on(
-						"click",
+		$("td:nth-child(2)").on("click",
 
 						function() {
 							//Debug..
@@ -223,25 +221,30 @@
 									}); //ajax끝
 						});
 
+		
+		});
 		///////////////////////////////////////////////////////////////////////
 
+	$(function() {	
+		
+		
 		$("input[name=searchKeyword]").keyup(function() {
 
 			fncAutoComplete();
 		});
 
-		/*
-		$("#highPrice").click(function() {
+		
+		$("#highprice").click(function() {
 
 			alert("highPrice");
 			fncGetProductList(1);
 		});
-		 */
-		$("#lowprice").click(function() {
-
-			alert($("#lowprice").html());
-			$("#currentPage").val(1)
-			$("form").attr("method", "POST").attr("action","/product/listProduct?menu=search").submit();
+		 
+		$("#lowprice").on("click",function() {
+			
+			//alert("엥?");
+			//alert($(this).parent().html());
+			fncGetProductList(1);
 		})
 
 		////////////////////////////////////////////////////////////////////////////
@@ -249,6 +252,7 @@
 		$("td:nth-child(2)").css("color", "red");
 
 	});
+		
 </script>
 </head>
 
@@ -280,28 +284,28 @@
 	    </div>
 		
 		<div class="row">
+		
+			<div class="col-md-6 text-left">
+		    	<p class="text-primary">
+		    		전체  ${resultPage.totalCount } 건수, 현재 ${resultPage.currentPage}  페이지
+		    	</p>
+		    </div>
 			
-			 <div class="col-md-6 text-left">
-		    	
-		    	<form class="form-inline" name="detailForm">
-		    		<div class="form-group">
-		    			<p class="text-primary">
-		    				전체  ${resultPage.totalCount } 건수, 현재 ${resultPage.currentPage}  페이지
-		    			</p>
-		    		</div>
-		    		<div class="form-group">
+		    
+		    <div class="col-md-6 text-right">
+			   
+			    <form class="form-inline" name="detailForm">
+			    
+			      <div class="form-group">
 		    			<select class="form-control" name="orderCondition" >
+							
 							<option value="0"  ${!empty search.orderCondition && search.orderCondition==0 ? "selected" : "" }>--정렬--</option>
 							<option value="1" id="highprice" ${!empty search.orderCondition && search.orderCondition==1 ? "selected" : "" }>가격높은순</option>
 							<option value="2" id="lowprice" ${!empty search.orderCondition && search.orderCondition==2 ? "selected" : "" }>가격낮은순</option>
 
 						</select>
-		    		</div>
-		    	</form>
-		    </div>
-		    
-		    <div class="col-md-6 text-right">
-			    <form class="form-inline" name="detailForm">
+		    	  </div>
+			    	
 			    
 				  <div class="form-group">
 				    <select class="form-control" name="searchCondition" >

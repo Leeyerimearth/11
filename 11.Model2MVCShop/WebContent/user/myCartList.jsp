@@ -39,8 +39,6 @@
 		
 	$( function() {
 	    
-		var value;
-		
 		$( ".spinner.abc" ).spinner({
 	      	min :1,
 			spin: function( event, ui ) {
@@ -48,16 +46,19 @@
 	    	  
 	    	 // alert($(this).spinner("value"));
 	    	 var eachPrice = $(this).attr('id');
-	    	 value = $(this).spinner("value")+1;
+	    	 //value = $(this).spinner("value")+1;
+	    	 //$(this)
+	    	 var value = ui.value;
+	    	 //alert(value);
 	    	 
 	    	 var sumPrice = eachPrice * value; // 얘를 set해주면된다.
 			
 	    	 if(value==1){
-	    		 $(this).parent().parent().parent().find("#totalPrice").html("<h4>"+eachPrice+"원<h4>"); 
+	    		 $(this).parent().parent().parent().find("#totalPrice").html("<h4>"+eachPrice+" 원<h4>"); 
 	    	}
 	    	
 	    	 else{
-	    	 	$(this).parent().parent().parent().find("#totalPrice").html("<h4>"+sumPrice+"원<h4>");
+	    	 	$(this).parent().parent().parent().find("#totalPrice").html("<h4>"+sumPrice+" 원<h4>");
 	    	 } 
 	    	 
 	        if ( ui.value < 1 ) {
@@ -72,17 +73,29 @@
 		
 		$(".btn.btn-warning").on("click",function(){
 			var prodNo = $(this).parent().parent().parent().find("input[type=checkbox]").val() //선택한애 prodNo
-			alert(value);
+			//$(this).parent().parent().parent().find(".spinner.abc").val()
+			var quantity = $(this).parent().parent().parent().find(".spinner.abc").val();
 			
-			//self.location = "/purchase/addPurchase?prodNo="+prodNo+"&quantity="+value
+			self.location = "/purchase/addPurchase?prodNo="+prodNo+"&quantity="+quantity;
 			
 		});
 	    
-	    
-	    
+		$("button:contains('선택상품 삭제')").on("click",function(){
+			
+			alert("삭제!");
+			$("input[type=checkbox]").each(function(){
+				
+		    	if(this.checked){
+					//alert("들들!");
+					$(this).parent().parent().html(""); //가 아니라, ajax로 db지우고, list다시 받아오세용
+				}    	
+		    });
+			
+		});
+		
+	   
+	
 	  } );
-	
-	
 	
 	</script>
 </head>
@@ -133,7 +146,7 @@
 			  </td>
 			  <td align="left">
 			  	<br/>
-  				<input class="spinner abc" name="value" id ="${cart.cartProduct.price}" value=""><br/><br/>
+  				<input class="spinner abc" id ="${cart.cartProduct.price}" value="1"><br/><br/>
   			
   				<div class="col-sm-offset-1 col-sm-11">
   					<button type="button" class="btn btn-warning">BUY NOW</button>
