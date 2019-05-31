@@ -9,4 +9,6 @@ public interface CartDao {
 	public void insertCart(Cart cart);
 	
 	public List<Cart> getMyCartList(String userId);
+	
+	public void deleteCart(String[] cartNos);
 }

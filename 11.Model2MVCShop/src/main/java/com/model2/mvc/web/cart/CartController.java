@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.model2.mvc.service.cart.CartService;
 import com.model2.mvc.service.domain.Cart;
+import com.model2.mvc.service.domain.User;
 
 @Controller
 @RequestMapping("/cart/*")
@@ -60,4 +61,22 @@ public class CartController {
 		return "forward:/user/myCartList.jsp";
 	}
 	//장바구니 삭제
+	
+	@RequestMapping(value="deleteCart", method=RequestMethod.GET)
+	public String deleteCart(@RequestParam("checkCartNo") String checkCartNo, HttpSession session
+								,Model model)
+	{
+		System.out.println("/cart/deleteCart");
+		
+		User user = (User) session.getAttribute("user");
+		
+		String [] cartNos = checkCartNo.split(",");
+		
+		cartService.deleteCart(cartNos); //삭제할 cartNo 배열 넘겨주기 -> 삭제
+		List<Cart> myCartList = cartService.getMyCartList(user.getUserId());
+		model.addAttribute("list", myCartList);
+		
+		return "forward:/user/myCartList.jsp";
+	}
+	
 }

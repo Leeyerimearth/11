@@ -9,4 +9,6 @@ public interface CartService {
 	public void addCart(Cart cart);
 		
 	public List<Cart> getMyCartList(String userId);
+	
+	public void deleteCart(String[] cartNos);
 }

@@ -70,6 +70,11 @@
 	      }
 	    });
 	    
+		$(".check-all").on("click",function(){
+			
+			$(".singleCheck").prop("checked",this.checked);
+		})
+		
 		
 		$(".btn.btn-warning").on("click",function(){
 			var prodNo = $(this).parent().parent().parent().find("input[type=checkbox]").val() //선택한애 prodNo
@@ -82,15 +87,22 @@
 	    
 		$("button:contains('선택상품 삭제')").on("click",function(){
 			
+			var checkCartNo="";
+			
 			alert("삭제!");
 			$("input[type=checkbox]").each(function(){
 				
 		    	if(this.checked){
 					//alert("들들!");
-					$(this).parent().parent().html(""); //가 아니라, ajax로 db지우고, list다시 받아오세용
-				}    	
+					//$(this).parent().parent().html(""); //가 아니라, ajax로 db지우고, list다시 받아오세용 -> 화면을 바꾸기
+					//alert($(this).parent().parent().find("#cartNo").val());
+					checkCartNo = checkCartNo + $(this).parent().parent().find("#cartNo").val() +",";
+		    	}    	
 		    });
 			
+			alert(checkCartNo);
+			
+			self.location = "/cart/deleteCart?checkCartNo="+checkCartNo;
 		});
 		
 	   
@@ -117,7 +129,9 @@
 
 			<thead>
 				<tr>
-					<th align="center">선택</th>
+					<th align="center">
+						<input type="checkbox" name="all" class="check-all"/>
+					</th>
 					<th align="center"></th>
 					<th align="left">상품정보</th>
 					<th align="left">수량</th>
@@ -134,7 +148,8 @@
 			<tr>
 			  <td align="center">
 			  <br/><br/>
-			  	<input type="checkbox" id="${cart.cartProduct.prodNo}" value="${cart.cartProduct.prodNo}"/>
+			  	<input type="hidden" id="cartNo" value="${cart.cartNo}"/>
+			  	<input type="checkbox" id="${cart.cartProduct.prodNo}" class="singleCheck" value="${cart.cartProduct.prodNo}"/>
 			  </td>
 			  <td align="left" width="150">
 			  	<img src = "/images/uploadFiles/${cart.cartProduct.fileName1}" width="100" height="100"/>

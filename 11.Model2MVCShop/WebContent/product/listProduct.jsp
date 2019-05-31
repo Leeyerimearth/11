@@ -168,7 +168,7 @@
 			modal : true,
 			buttons : buttons,
 			close : function() {
-				form[0].reset();
+				//form[0].reset();
 				dialog.dialog("close");
 			}
 
@@ -330,50 +330,40 @@
 	    	</div>
 		   
 		</div>
-		
-		<table class="table table-hover table-striped" >
-			
-		<thead>
-          <tr>
-            <th align="center">No</th>
-            <th align="left" >상품명</th>
-            <th align="left">가격</th>
-            <th align="left">상품상세정보</th>
-            <th align="left">현재상태</th>
-          </tr>
-        </thead>
-		
-		
-		<tbody>
-		
-		  <c:set var="i" value="0" />
+
+	<br/><br/>
+	
+	
+	
+	<c:set var="i" value="0" />  
 		  <c:forEach var="product" items="${list}">
 			<c:set var="i" value="${ i+1 }" />
-			<tr>
-			  <td align="center">${ i }</td>
-			  <td align="left"  title="Click : 상세정보">${product.prodName}
-			  	<input type="hidden" id="prodNo" name="prodNo" value="${product.prodNo}"/>
-			  </td>
-			  <td align="left">
-			 	 <fmt:formatNumber value="${product.price}" groupingUsed="true"/>
-			  </td>
-			  <td align="left">${product.prodDetail}</td>
-	  		
-			  <td align="center" id ="quantity">
-			  	<c:if test="${product.quantity >= 1}">
-			 	 	판매중
-			  	</c:if>
-			  	<c:if test="${product.quantity <= 0}">
-			  		품절
-			  	</c:if>
-			  </td>
-			 
-			</tr>
-          </c:forEach>
-        
-        </tbody>
+
+		<div class="row-inline">
+			<div class="col-sm-6 col-md-4">
+				<div class="thumbnail">
+					<img src="/images/uploadFiles/${product.fileName1}">
+					<div class="caption">
+						<h5><ins><strong>${product.prodName}</strong><ins></h5>
+						<h6>${product.prodDetail}</h6>
+						<br/>
+						<h5><strong>${product.price}</strong> 원</h5>
+						<p>
+							<span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span>
+							&nbsp; &nbsp; &nbsp; &nbsp;
+							<span class="glyphicon glyphicon-comment" aria-hidden="true"></span>
+						</p>
+					</div>
+				</div>
+			</div>
+		</div>
 		
-		</table>
+		</c:forEach>
+
+
+
+
+		
 	
 	</div>
 

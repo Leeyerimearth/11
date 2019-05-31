@@ -27,4 +27,13 @@
 	 	WHERE user_id = #{value}
 	 </select>
 	 
+	 <delete id= "deleteCart" parameterType="hashmap">
+	 	DELETE FROM cart
+	 	WHERE
+	 	<foreach collection="cartNos" item="item" separator="or" index="index">
+	 		cart_no = #{item}
+	 	</foreach>
+	 	
+	 </delete>
+	 
 </mapper>

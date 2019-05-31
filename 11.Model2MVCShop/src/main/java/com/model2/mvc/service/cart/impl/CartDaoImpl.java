@@ -1,5 +1,6 @@
 package com.model2.mvc.service.cart.impl;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
@@ -37,6 +38,15 @@ public class CartDaoImpl implements CartDao{
 	public List<Cart> getMyCartList(String userId) {
 		// TODO Auto-generated method stub
 		return sqlSession.selectList("CartMapper.getMyCartList", userId);
+	}
+
+	@Override
+	public void deleteCart(String[] cartNos) {
+		
+		HashMap map = new HashMap();
+		map.put("cartNos", cartNos);
+		//map.put("userId", userId);
+		sqlSession.delete("CartMapper.deleteCart", map);
 	}
 
 }
