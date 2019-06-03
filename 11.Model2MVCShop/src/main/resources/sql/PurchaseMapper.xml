@@ -115,7 +115,7 @@
 	    receiver_phone = #{receiverPhone:VARCHAR},
 	    demailaddr= #{divyAddr:VARCHAR},
 	    dlvy_request = #{divyRequest:VARCHAR},
-	    dlvy_date = TO_DATE(#{divyDate},'mm-dd-yyyy'),
+	    dlvy_date = TO_DATE(#{divyDate},'yyyy-mm-dd'),
 	    pay_amount = #{payAmount:NUMERIC}
 	</set>
 		WHERE tran_no = #{tranNo}

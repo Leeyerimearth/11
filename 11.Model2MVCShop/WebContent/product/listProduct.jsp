@@ -18,8 +18,8 @@
 <link rel="stylesheet" href="/resources/demos/style.css">
 
 <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
-<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" ></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 
 
 	<!-- Bootstrap Dropdown Hover CSS -->
@@ -103,12 +103,13 @@
 
 	function addCart(){
 		
-		if(ranoutOrNot=='품절')//품절상품은 장바구니에 담을수 없음.
+		if(ranoutOrNot <= 0)//품절상품은 장바구니에 담을수 없음.
 		{
 			alert("품절상품입니다.");
 			return;
 		}
-		else{ alert($("#dialogImage").val())}
+		else{ //alert($("#dialogImage").val())
+			}
 		
 		//ajax로 cart정보 table에 추가 화면은 변하는것 없고, success하면 추가됐다는 alert창뜨기
 		
@@ -125,7 +126,7 @@
 			}),
 			success : function(status) {
 				
-				alert(status);
+				//alert(status);
 				alert("장바구니에 추가되었습니다!");
 	
 			}
@@ -143,12 +144,12 @@
 	}
 	function purchaseProduct() {
 		
-		if(ranoutOrNot=='품절')
+		if(ranoutOrNot <= 0)
 		{
 			alert("품절상품입니다.");
 			return;
 		}
-		alert($("#dialogImage").val());
+		//alert($("#dialogImage").val());
 		self.location = "/purchase/addPurchase?prodNo="+ $("#dialogImage").val(); //prod_no
 	}
 
@@ -181,20 +182,21 @@
 		});
 
 		// No 클릭하면? No 클릭 event  prodNo보내기 체크
-		$("td:nth-child(2)").on("click",
+		$(".thumbnail").on("click",
 
 						function() {
 							//Debug..
-							alert($(this).find('input').val());
-							ranoutOrNot = $(this).parent().find('#quantity')
-									.text().trim();
-							alert("_" + ranoutOrNot + "_");
+							//alert($(this).parent().html());
+							
+							//alert($(this).parent().find('#prodNo').val());
+							ranoutOrNot = $(this).parent().find('#quantity').val();
+							//alert("_" + ranoutOrNot + "_");
 
 							///////////////////////classic web에서 ajax web으로 변경
 							//self.location ="/product/getProduct?prodNo="+$(this).find('input').val(); //prod_no
 							$.ajax({
 										url : "/product/json/getProduct/"
-												+ $(this).find('input').val(),
+												+ $(this).parent().find('#prodNo').val(),
 										method : "GET",
 										dataType : "text",
 										success : function(serverData, status) {
@@ -219,7 +221,9 @@
 										}
 
 									}); //ajax끝
-						});
+															
+		
+					});
 
 		
 		});
@@ -236,7 +240,7 @@
 		
 		$("#highprice").click(function() {
 
-			alert("highPrice");
+			//alert("highPrice");
 			fncGetProductList(1);
 		});
 		 
@@ -343,11 +347,21 @@
 			<div class="col-sm-6 col-md-4">
 				<div class="thumbnail">
 					<img src="/images/uploadFiles/${product.fileName1}">
+					<table>
+						<tr>
+						<td>
+							<input type="hidden" id="prodNo" value="${product.prodNo}">
+							<input type="hidden" id="quantity" value="${product.quantity}">
+						</td>
+						</tr>
+					</table>
 					<div class="caption">
 						<h5><ins><strong>${product.prodName}</strong><ins></h5>
 						<h6>${product.prodDetail}</h6>
 						<br/>
-						<h5><strong>${product.price}</strong> 원</h5>
+						<h5><strong>
+							<fmt:formatNumber value="${product.price}" groupingUsed="true"/>
+						</strong> 원</h5>
 						<p>
 							<span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span>
 							&nbsp; &nbsp; &nbsp; &nbsp;

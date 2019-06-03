@@ -92,7 +92,7 @@
 								ORDER BY price
 							</if>
 							<if test="orderCondition == 0"> 
-								ORDER BY prod_no
+								ORDER BY reg_date DESC
 							</if>
 							)inner_table
 				   WHERE ROWNUM &lt;= #{endRowNum})

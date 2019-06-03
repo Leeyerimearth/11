@@ -91,7 +91,7 @@
 		$( "td:nth-child(1)" ).on("click" , function() {
 			//Debug..
 				//alert( $('input[id=prodNo]').val() );
-				alert( $(this).find('input').val()); //$('input[id=prodNo]').val() );
+				//alert( $(this).find('input').val()); //$('input[id=prodNo]').val() );
 				///purchase/getPurchase?tranNo=${purchase.tranNo}
 			self.location ="/purchase/getPurchase?tranNo="+$(this).find('input').val();
 		

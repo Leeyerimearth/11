@@ -10,7 +10,7 @@
 	
 	<div class="container">
 	       
-		<a class="navbar-brand" href="/index.jsp">Model2 MVC Shop</a>
+		<a class="navbar-brand" href="/main.jsp">Model2 MVC Shop</a>
 		
 		<!-- toolBar Button Start //////////////////////// -->
 		<div class="navbar-header">
@@ -68,6 +68,8 @@
 		                     </ul>
 		                </li>
 		                
+		                
+		                
 	                 </c:if>
 	                 
 	              <!-- 상품구매 DrowDown (공통)-->
@@ -103,9 +105,17 @@
 	                 
 	                     </ul>
 	               		</li>
+	               		<li><a href="#">로그아웃</a></li>
 	             	</c:if>
 	             	
-	                <li><a href="#">로그아웃</a></li>
+	             	<c:if test="${sessionScope.user.role =='admin'}">
+	             		<li><a href="#">로그아웃</a></li>
+	             	</c:if>
+	             	
+	             	<c:if test="${sessionScope.user==null}">
+	             		<li><a href="#">로그인</a></li>
+	             	</c:if>
+	                
 	            </ul>
 		</div>
 		<!-- dropdown hover END -->	       
@@ -125,6 +135,13 @@
 				$(self.location).attr("href","/user/logout");
 				//self.location = "/user/logout"
 			}); 
+			
+		 	$("a:contains('로그인')").on("click" , function() {
+				$(self.location).attr("href","/user/login");
+				
+			});
+			
+			
 		 });
 		
 		//============= 회원정보조회 Event  처리 =============	

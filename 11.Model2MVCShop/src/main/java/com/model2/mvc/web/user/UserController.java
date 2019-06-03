@@ -177,7 +177,7 @@ public class UserController {
 		
 		session.invalidate();
 		
-		return "redirect:/index.jsp";
+		return "redirect:/main.jsp";
 	}
 	
 	

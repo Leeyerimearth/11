@@ -89,18 +89,18 @@
 			
 			var checkCartNo="";
 			
-			alert("삭제!");
+			alert("삭제되었습니다.");
 			$("input[type=checkbox]").each(function(){
 				
 		    	if(this.checked){
-					//alert("들들!");
-					//$(this).parent().parent().html(""); //가 아니라, ajax로 db지우고, list다시 받아오세용 -> 화면을 바꾸기
-					//alert($(this).parent().parent().find("#cartNo").val());
-					checkCartNo = checkCartNo + $(this).parent().parent().find("#cartNo").val() +",";
-		    	}    	
+		    		//alert($(this).attr('name'));
+					if($(this).attr('name')!= "all" ){
+						checkCartNo = checkCartNo + $(this).parent().parent().find("#cartNo").val() +",";
+					}
+				}    	
 		    });
 			
-			alert(checkCartNo);
+			//alert(checkCartNo);
 			
 			self.location = "/cart/deleteCart?checkCartNo="+checkCartNo;
 		});
