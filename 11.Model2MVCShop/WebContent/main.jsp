@@ -55,13 +55,12 @@
 
 	<!-- 참조 : http://getbootstrap.com/css/   : container part..... -->
 	<div class="container">
-        <h3>나폴레옹은 이렇게 말했다.</h3>
-        <p>"오늘 나의 불행은 언젠가 내가 잘못 보낸 시간의 보복이다."</p>
-  	 	<h3>"... 장벽은 절실하게 원하지 않는 사람들을 걸러내려고 존재합니다. 장벽은. 당신이 아니라 '다른' 사람들을 멈추게 하려고 거기 있는 것이지요."</h3>
-         <h3>혜광스님</h3>
-         <p>행복한 삶의 비결은.</p>
-         <p>좋아하는 일을 하는 것이 아리라,</p>
-         <p>지금 하는 일을 좋아하는 것입니다.</p>
+        <h3>승규씨는 이렇게 말했다.</h3>
+        <h4>"Try not to become</h4>
+  	 	<h3><strong>Success</strong></h3>
+         <h4>But rather try to Become a man of</h4>
+         <h3><strong>Value"</strong></h3>
+         <p><em>by 승규씨 필통</em></p>
   	 </div>
 
 </body>
